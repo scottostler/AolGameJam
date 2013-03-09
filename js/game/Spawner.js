@@ -11,9 +11,7 @@ Spawner.prototype.update = function(elapsedTime) {
 
 		var asteroid = this.mGame.CreateWorldEntity(Asteroid).Setup(Math.random(), 0);
 
-		return [new Asteroid(this.screen)];
-	} else {
-		return [];
+    	this.mGame.enemies.push(asteroid);
 	}
 
 };

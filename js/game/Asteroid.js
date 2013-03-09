@@ -17,7 +17,7 @@ Asteroid.prototype =
 
     subclassUpdate: function(elapsedTime)
     {
-    	this.y += 40 * elapsedTime;
+    	this.y += 120 * elapsedTime;
     },
 }
 extend(Asteroid,TGE.ScreenEntity);
