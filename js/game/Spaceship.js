@@ -10,6 +10,8 @@ Spaceship = function(game)
     this.mSpeed = 250;
 	this.isDragged = false;
 	this.highestBarrier = 0.7;
+	this.yOffset = 50;
+	this.radius = 50;
 }
 
 
@@ -27,14 +29,15 @@ Spaceship.prototype =
     subclassUpdate: function(elapsedTime)
     {
 		this.mouseClickedMe();
+		this.collisionDetection();
 		this.x = this.mGame.mMouseX;
-		if(this.mGame.mMouseY < this.mGame.mScreenManager.XFromPercentage(this.highestBarrier)+50)
+		if(this.mGame.mMouseY < this.mGame.mScreenManager.XFromPercentage(this.highestBarrier)+this.yOffset)
 		{
-			this.y = this.mGame.mScreenManager.YFromPercentage(this.highestBarrier)-50;
+			this.y = this.mGame.mScreenManager.YFromPercentage(this.highestBarrier)-this.yOffset;
 		}
 		else
 		{
-			this.y = this.mGame.mMouseY+50;
+			this.y = this.mGame.mMouseY+this.yOffset;
 		}
     },
 	
@@ -44,8 +47,8 @@ Spaceship.prototype =
 		{
 			var mX = this.mGame.mMouseX;
 			var mY = this.mGame.mMouseY;
-			if(mX > this.x && mX < this.x + this.width &&
-			   mY > this.y && mY < this.y + this.height &&
+			if(mX > this.x - this.width/2 && mX < this.x + this.width/2 &&
+			   mY > this.y - this.height/2 && mY < this.y + this.height/2 &&
 			   this.mGame.isMouseDown())
 			{
 				this.isDragged = true;
@@ -55,6 +58,28 @@ Spaceship.prototype =
 		{
 			this.isDragged = false;
 		}
+	},
+	
+	collisionDetection: function()
+	{
+		var enemyArray = this.mGame.enemies;
+		var x = this.x;
+		var y = this.y-this.yOffset;
+		for(var i = enemyArray.length-1; i > -1; i--)
+		{
+			if(this.mGame.collided(enemyArray[i].x,enemyArray[i].y,x,y,this.radius+50))
+			{
+				enemyArray[i].visible = false;
+				enemyArray[i].markForRemoval();
+				enemyArray.splice(i,1);
+				
+			}
+		}
+	},
+	
+	Destroy: function()
+	{
+		this.markForRemoval();
 	},
 }
 extend(Spaceship,TGE.ScreenEntity);

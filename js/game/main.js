@@ -73,8 +73,7 @@ MyGame.prototype =
 
     subclassUpdateGame: function(elapsedTime)
     {
-    	var newEnemies = this.spawner.update(elapsedTime);
-    	this.enemies.push(newEnemies);
+    	this.spawner.update(elapsedTime);
 
 		this.circle.x += elapsedTime*300;
 		this.circle.y += elapsedTime*300;
@@ -117,11 +116,13 @@ MyGame.prototype =
 		this.score += 10;
 	},
 	
-	collided: function(obj1,obj2)
+	collided: function(obj1X,obj1Y,obj2X,obj2Y,totalDistance)
 	{
-		if(obj1.x < obj2.x + obj2.width)
-		{
-		}
+		
+		var xDistance = obj1X - obj2X;
+		var yDistance = obj1Y - obj2Y;
+		var distance = Math.sqrt(yDistance*yDistance+xDistance*xDistance);
+		return ( distance < totalDistance);
 	},
 
 }
