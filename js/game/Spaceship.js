@@ -9,6 +9,7 @@ Spaceship = function(game)
     this.mMoving = false;
     this.mSpeed = 250;
 	this.isDragged = false;
+	this.highestBarrier = 0.7;
 }
 
 
@@ -27,7 +28,14 @@ Spaceship.prototype =
     {
 		this.mouseClickedMe();
 		this.x = this.mGame.mMouseX;
-		this.y = this.mGame.mMouseY;
+		if(this.mGame.mMouseY < this.mGame.mScreenManager.XFromPercentage(this.highestBarrier)+50)
+		{
+			this.y = this.mGame.mScreenManager.YFromPercentage(this.highestBarrier)-50;
+		}
+		else
+		{
+			this.y = this.mGame.mMouseY+50;
+		}
     },
 	
 	mouseClickedMe: function()
