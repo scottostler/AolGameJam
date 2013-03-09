@@ -2,6 +2,7 @@ Asteroid = function(game)
 {
     // Make sure to call the constructor for the TGE.Game superclass
     Asteroid.superclass.constructor.call(this,game);
+    this.radius = 50;
 };
 
 

@@ -84,10 +84,11 @@ Spaceship.prototype =
 		var y = this.y-this.yOffset;
 		for(var i = enemyArray.length-1; i > -1; i--)
 		{
-			if(this.mGame.collided(enemyArray[i].x,enemyArray[i].y,x,y,this.radius+50))
+			var enemy = enemyArray[i];
+			if(this.mGame.collided(enemy.x,enemy.y,x,y,this.radius+enemy.radius))
 			{
-				enemyArray[i].visible = false;
-				enemyArray[i].markForRemoval();
+				enemy.visible = false;
+				enemy.markForRemoval();
 				enemyArray.splice(i,1);
 				
 			}
