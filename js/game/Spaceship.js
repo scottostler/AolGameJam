@@ -20,7 +20,6 @@ Spaceship.prototype =
 		var y = this.mGame.mScreenManager.YFromPercentage(yPos);
         Spaceship.superclass.Setup.call(this,x,y,sprite,background);
 		this.isDragged = false;
-		console.log("created " + x + " " + y);
 		return this;
     },
 

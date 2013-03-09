@@ -18,7 +18,8 @@ MyGame = function()
         {id:'gameover_background', 		url:'images/screens/gameover/gameover_background.jpg'},
 		
         {id:'selection',   				url:'images/gameassets/selection.png'},
-        {id:'spaceship',   				url:'images/gameassets/spaceship.png'}
+        {id:'spaceship',   				url:'images/gameassets/spaceship.png'},
+        {id:'asteroid_small', url: 'images/gameassets/asteroid_small.png'}
     ];
 
     var gameSounds = [
@@ -61,6 +62,9 @@ MyGame.prototype =
 		this.circle = CreateButtonUI(this,0.1,0.5,"selection",this.itemClicked.bind(this),1,"background");
 		this.dodgeThis = CreateScreenUI(this,-0.2,0.5,"selection","background");
 		this.spaceShip = this.CreateWorldEntity(Spaceship).Setup(0.5,0.9,"spaceship");
+
+		this.spawner = new Spawner(this);
+		this.enemies = [];
     },
 
     subclassSetupLevel: function(levelNumber)
@@ -69,6 +73,9 @@ MyGame.prototype =
 
     subclassUpdateGame: function(elapsedTime)
     {
+    	var newEnemies = this.spawner.update(elapsedTime);
+    	this.enemies.push(newEnemies);
+
 		this.circle.x += elapsedTime*300;
 		this.circle.y += elapsedTime*300;
 		if(this.circle.x > this.Width())

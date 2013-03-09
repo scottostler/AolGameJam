@@ -94,6 +94,8 @@ else
     //   "http://sdk.tresensa.com/lib/facebook.js",
         "js/game/main.js",
 		"js/game/Spaceship.js",
+        "js/game/Spawner.js",
+        "js/game/Asteroid.js",
         "js/game/ui/LoadingScreen.js",
         "js/game/ui/MainMenu.js",
         "js/game/ui/PauseScreen.js",
