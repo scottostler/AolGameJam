@@ -93,6 +93,10 @@ MyGame.prototype =
 		//Update Score
 		this.scoreText.text = "Score: " + this.score;
 
+		this.checkMouseState(elapsedTime);
+    },
+
+	checkMouseState: function(elapsedTime) {
 		var isMouseReleased = this.wasMasDown && !this.isMouseDown();
 		if(isMouseReleased) {
 			var bullet = this.spaceShip.attemptFireBullet();
