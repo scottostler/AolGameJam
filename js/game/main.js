@@ -17,7 +17,8 @@ MyGame = function()
         {id:'gameover_background', 		url:'images/screens/gameover/gameover_background.jpg'},
         {id:'gameover_background', 		url:'images/screens/gameover/gameover_background.jpg'},
 		
-        {id:'selection',   				url:'images/gameassets/selection.png'}
+        {id:'selection',   				url:'images/gameassets/selection.png'},
+        {id:'spaceship',   				url:'images/gameassets/spaceship.png'}
     ];
 
     var gameSounds = [
@@ -41,6 +42,7 @@ MyGame = function()
 	this.score = 0;
 	this.moveMe = false;
 	this.dodgeSpeedX = 300;
+	this.spaceShip;
 },
 
 
@@ -58,6 +60,7 @@ MyGame.prototype =
 		this.scoreText = CreateTextUI(this,0.5,0.1,"Score: ","bold 40px Arial","center","black");
 		this.circle = CreateButtonUI(this,0.1,0.5,"selection",this.itemClicked.bind(this),1,"background");
 		this.dodgeThis = CreateScreenUI(this,-0.2,0.5,"selection","background");
+		this.spaceShip = this.CreateWorldEntity(Spaceship).Setup(0.5,0.9,"spaceship");
     },
 
     subclassSetupLevel: function(levelNumber)
@@ -71,7 +74,7 @@ MyGame.prototype =
 		if(this.circle.x > this.Width())
 		{
 			this.gameResult = "loss";
-			this.EndGame();
+			//this.EndGame();
 		}
 		if(this.moveMe)
 		{
