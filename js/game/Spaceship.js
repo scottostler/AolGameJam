@@ -26,13 +26,10 @@ Spaceship.prototype =
     subclassUpdate: function(elapsedTime)
     {
 		this.mouseClickedMe();
-		if(this.isDragged)
-		{
-			this.x = this.mGame.mMouseX;
-			this.y = this.mGame.mMouseY;
-		}
+		this.x = this.mGame.mMouseX;
+		this.y = this.mGame.mMouseY;
     },
-
+	
 	mouseClickedMe: function()
 	{
 		if(!this.isDragged)
