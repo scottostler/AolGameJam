@@ -19,7 +19,7 @@ MyGame = function()
 		
         {id:'selection',   				url:'images/gameassets/selection.png'},
         {id:'spaceship',   				url:'images/gameassets/spaceship.png'},
-        {id:'asteroid_small', url: 'images/gameassets/asteroid_small.png'}
+        {id:'asteroid_small', 			url: 'images/gameassets/asteroid_small.png'}
     ];
 
     var gameSounds = [
@@ -65,6 +65,7 @@ MyGame.prototype =
 
 		this.spawner = new Spawner(this);
 		this.enemies = [];
+		this.bullets = [];
     },
 
     subclassSetupLevel: function(levelNumber)
@@ -92,11 +93,19 @@ MyGame.prototype =
 		
 		//Update Score
 		this.scoreText.text = "Score: " + this.score;
-		
-		if(true)
-		{
-			
+
+		var isMouseReleased = this.wasMasDown && !this.isMouseDown();
+		if(isMouseReleased) {
+			var bullet = this.spaceShip.attemptFireBullet();
+			if (bullet) {
+				this.bullets.push(bullet);
+			}
+			this.spaceShip.resetEpoch();
+		} else if (this.isMouseDown()) {
+			this.spaceShip.updateEpoch(elapsedTime);
 		}
+
+		this.wasMasDown = this.isMouseDown();
     },
 
     subclassMouseDown: function()

@@ -11,7 +11,7 @@ Asteroid.prototype =
     {
 		var x = this.mGame.mScreenManager.XFromPercentage(xPos);
 		var y = this.mGame.mScreenManager.YFromPercentage(yPos);
-        Spaceship.superclass.Setup.call(this,x,y,"asteroid_small");
+        Asteroid.superclass.Setup.call(this,x,y,"asteroid_small");
 		return this;
     },
 

@@ -10,6 +10,7 @@ Spaceship = function(game)
     this.mSpeed = 250;
 	this.isDragged = false;
 	this.highestBarrier = 0.7;
+	this.fireCooldown = 0;
 }
 
 
@@ -21,11 +22,13 @@ Spaceship.prototype =
 		var y = this.mGame.mScreenManager.YFromPercentage(yPos);
         Spaceship.superclass.Setup.call(this,x,y,sprite,background);
 		this.isDragged = false;
+		this.epoch = 0;
 		return this;
     },
 
     subclassUpdate: function(elapsedTime)
     {
+    	this.fireCooldown -= elapsedTime;
 		this.mouseClickedMe();
 		this.x = this.mGame.mMouseX;
 		if(this.mGame.mMouseY < this.mGame.mScreenManager.XFromPercentage(this.highestBarrier)+50)
@@ -51,10 +54,24 @@ Spaceship.prototype =
 				this.isDragged = true;
 			}
 		}
-		if(!this.mGame.isMouseDown())
-		{
-			this.isDragged = false;
-		}
 	},
+
+	resetEpoch: function(){
+		this.epoch = 0;
+	},
+
+	updateEpoch: function(elapsedTime) {
+		this.epoch += elapsedTime;
+	},
+
+	attemptFireBullet: function() {
+		if (this.fireCooldown > 0) {
+			return null;
+		}
+
+		this.fireCooldown = 0.5;
+		var bullet = this.mGame.CreateWorldEntity(Bullet).Setup(this);
+		return bullet;
+	}
 }
 extend(Spaceship,TGE.ScreenEntity);
