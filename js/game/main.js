@@ -1,5 +1,36 @@
+// Utility functions
+	
+function collided(obj1X,obj1Y,obj2X,obj2Y,totalDistance)
+{
+	var xDistance = obj1X - obj2X;
+	var yDistance = obj1Y - obj2Y;
+	var distance = Math.sqrt(yDistance*yDistance+xDistance*xDistance);
+	return ( distance < totalDistance);
+}
+
+function detectFirstCollision(a, bs, callback) {
+    for (var i = 0; i < bs.length; i++) {
+        var b = bs[i];
+        var didCollide = collided(
+        a.x + a.offsetX,
+        a.y + a.offsetY,
+        b.x + b.offsetX,
+        b.y + b.offsetY,
+        a.radius + b.radius);
+
+        if (didCollide) {
+            callback(a, b);
+            return i;
+        }
+    }
+
+    return -1;
+}
+
 MyGame = function()
 {
+    window.game = this;
+
     // Make sure to call the constructor for the TGE.Game superclass
     MyGame.superclass.constructor.call(this);
 
@@ -33,8 +64,6 @@ MyGame = function()
     this.assetManager.assignImageAssetList("loading", loadingAssets);
     this.assetManager.assignImageAssetList("required", gameAssets);
     this.assetManager.rootLocation = GameConfig.CDN_ROOT;
-	
-	
 	
 	this.circle;
 	this.dodgeThis;
@@ -127,15 +156,7 @@ MyGame.prototype =
 		//this.circle.y = newY;
 		this.moveMe = true;
 		this.score += 10;
-	},
-	
-	collided: function(obj1X,obj1Y,obj2X,obj2Y,totalDistance)
-	{
-		var xDistance = obj1X - obj2X;
-		var yDistance = obj1Y - obj2Y;
-		var distance = Math.sqrt(yDistance*yDistance+xDistance*xDistance);
-		return ( distance < totalDistance);
-	},
+	}
 
 }
 extend(MyGame,TGE.Game);

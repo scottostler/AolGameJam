@@ -3,6 +3,8 @@ Asteroid = function(game)
     // Make sure to call the constructor for the TGE.Game superclass
     Asteroid.superclass.constructor.call(this,game);
     this.radius = 50;
+    this.offsetX = 0;
+    this.offsetY = 0;
 };
 
 
@@ -11,7 +13,7 @@ Asteroid.prototype =
     Setup: function(xPos,yPos)
     {
 		var x = this.mGame.mScreenManager.XFromPercentage(xPos);
-		var y = this.mGame.mScreenManager.YFromPercentage(yPos);
+		var y = this.mGame.mScreenManager.YFromPercentage(yPos) - this.radius;
         Asteroid.superclass.Setup.call(this,x,y,"asteroid_small");
 		return this;
     },

@@ -11,6 +11,7 @@ Spaceship = function(game)
 	this.isDragged = false;
 	this.highestBarrier = 0.7;
 	this.fireCooldown = 0;
+	this.xOffset = 0;
 	this.yOffset = 50;
 	this.radius = 50;
 }
@@ -85,12 +86,11 @@ Spaceship.prototype =
 		for(var i = enemyArray.length-1; i > -1; i--)
 		{
 			var enemy = enemyArray[i];
-			if(this.mGame.collided(enemy.x,enemy.y,x,y,this.radius+enemy.radius))
+			if(collided(enemy.x,enemy.y,x,y,this.radius+enemy.radius))
 			{
 				enemy.visible = false;
 				enemy.markForRemoval();
 				enemyArray.splice(i,1);
-				
 			}
 		}
 	},
