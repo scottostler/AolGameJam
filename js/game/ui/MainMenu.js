@@ -14,12 +14,11 @@ MainMenu.prototype =
 	{
 		this.Game().mainMenuInstance = this;
 		
-		var background = 	CreateScreenUI(this,0.5,0.5,"game_background","background");
-		this.titleText = 	CreateTextUI(this,0.5,0.1,"Main Menu","bold 40px Arial","center","black")
+		var background = 	CreateScreenUI(this,0.5,0.5,"MainBackground","background");
+		this.titleText = 	CreateTextUI(this,0.5,0.1,"Main Menu","bold 40px Arial","center","white")
 		var playButton =	CreateButtonUI(this,0.5,0.5,"button",this.playGame.bind(this),1,"background")
 		playButton.addChild(CreateTextUI(this,0,0,"Play Game","bold 32px Arial","center","black"));
 
-		this.playGame();
 	},
 	
 
