@@ -11,8 +11,9 @@
     <link rel="shortcut icon" href="favicon.ico">
     <link rel="image_src" href="web-image.jpg">
     <link rel="apple-touch-icon" href="apple-touch-icon.png" />
-
     <link rel="stylesheet" href="style.css" type="text/css" media="screen">
+
+    <script src="http://o.aolcdn.com/gamesdevcenter/sdk/v1/GamesSDK.js" type="text/javascript"></script> 
 
     <!-- Facebook meta-tags -->
     <meta property="og:url" content="">
@@ -35,6 +36,20 @@
     <!-- All game code and libs are loaded using head.js -->
     <script src="js/lib/head.min.js"></script>
     <script src="js/game.js"></script>
+
+    <script>
+        function handleError(label) {
+            return function(response) {
+                console.error(label, JSON.stringify(response));
+            };
+        };
+
+        GAMESAPI.setGameSecret('q6h27hxvxljvx7hqnyvhrydyq');
+        GAMESAPI.beginGameSession(function(response) {
+            GAMESAPI.postScore(3000);
+        }, handleError('beginGameSession'));
+    </script>
+
 </head>
 
 <body>
