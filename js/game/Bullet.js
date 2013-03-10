@@ -40,6 +40,7 @@ Bullet.prototype =
             var bIndex = this.mGame.bullets.indexOf(this);
             this.mGame.bullets.splice(bIndex, 1);
             this.mGame.enemies.splice(eIndex, 1);
+            this.mGame.score += 100;
         }
     }
 }
