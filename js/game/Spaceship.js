@@ -34,7 +34,7 @@ Spaceship.prototype =
     subclassUpdate: function(elapsedTime)
     {
     	this.fireCooldown -= elapsedTime;
-		this.mouseClickedMe();
+		//this.mouseClickedMe();
 		this.collisionDetection();
 		this.x = this.mGame.mMouseX;
 		if(this.mGame.mMouseY < this.mGame.mScreenManager.XFromPercentage(this.highestBarrier)+this.yOffset)
@@ -75,7 +75,7 @@ Spaceship.prototype =
 			return null;
 		}
 
-		this.fireCooldown = 0.5;
+		this.fireCooldown = 0.3;
 		this.mGame.CreateWorldEntity(Bullet).Setup(this);
 	},
 	

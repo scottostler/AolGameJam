@@ -18,7 +18,7 @@ Bullet.prototype =
         this.scaleY = scale;
         this.offsetX = 0;
         this.offsetY = 0;
-        this.radius = 80 * scale;
+        this.radius = 75 * scale;
         this.speed = this.isMega ? 200 : 400;
         return this;
     },
