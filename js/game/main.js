@@ -166,13 +166,14 @@ MyGame.prototype =
 		
 		this.score = 0;
 		this.lose = false;
+        this.win = false;
         this.score = 0;
 		this.bgManager = new BackgroundManager(this);
 		this.bgManager.Setup();
 		if(this.scoreText == null)
 			this.scoreText = CreateTextUI(this,0.05,0.05,"Score: ","bold 40px Digital-7","left","White");
 		this.spaceShip = this.CreateWorldEntity(Spaceship).Setup(0.5,0.9,"spaceship","spaceship");
-		
+
         this.CreateWorldEntity(TGE.ScreenEntity).Setup(150, this.Height() - 50, "power", "UI");
 
         var meterScale = 0.5;
@@ -197,7 +198,9 @@ MyGame.prototype =
 		if(this.lose)
 		{
 			this.EndGame();
-		}
+		} else if (this.win) {
+            this.EndGame();
+        }
     	this.spawner.update(elapsedTime);
 		this.bgManager.moveObjects(elapsedTime);
 		
@@ -231,6 +234,10 @@ MyGame.prototype =
 
     subclassEndGame: function()
     {
+        if (this.win) {
+            playVideo('video/Spaceship_Landing.mov', 5000, function() {});
+        }
+
         GAMESAPI.postScore(this.score, function() {
             console.log("Posted score of ", this.score)
         }.bind(this), function(r) {
