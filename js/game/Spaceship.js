@@ -22,7 +22,8 @@ Spaceship.prototype =
 		var x = this.mGame.mScreenManager.XFromPercentage(xPos);
 		var y = this.mGame.mScreenManager.YFromPercentage(yPos);
         Spaceship.superclass.Setup.call(this,x,y,sprite,background);
-		this.isDragged = false;
+        this.LoadAnimation("flying",sprite,1,3,3,24,true);
+        this.PlayAnimation("flying");
 		return this;
     },
 
@@ -67,7 +68,7 @@ Spaceship.prototype =
 		var y = this.y-this.yOffset;
 		for(var i = enemyArray.length-1; i > -1; i--)
 		{
-			if(this.mGame.collided(enemyArray[i].x,enemyArray[i].y,x,y,this.radius+50))
+			if(this.mGame.collided(enemyArray[i].x,enemyArray[i].y,x,y,this.radius+enemyArray[i].width/2))
 			{
 				enemyArray[i].visible = false;
 				enemyArray[i].markForRemoval();

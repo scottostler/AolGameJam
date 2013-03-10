@@ -15,10 +15,11 @@ MyGame = function()
         {id:'game_background',      	url:'images/screens/mainmenu/game_background.jpg'},
 		
         {id:'gameover_background', 		url:'images/screens/gameover/gameover_background.jpg'},
-        {id:'gameover_background', 		url:'images/screens/gameover/gameover_background.jpg'},
 		
         {id:'selection',   				url:'images/gameassets/selection.png'},
         {id:'spaceship',   				url:'images/gameassets/spaceship.png'},
+        {id:'static_back',   			url:'images/gameassets/static_back.png'},
+        {id:'scroll',   				url:'images/gameassets/scroll.png'},
         {id:'asteroid_small', url: 'images/gameassets/asteroid_small.png'}
     ];
 
@@ -34,16 +35,10 @@ MyGame = function()
     this.assetManager.assignImageAssetList("required", gameAssets);
     this.assetManager.rootLocation = GameConfig.CDN_ROOT;
 	
-	
-	
-	this.circle;
-	this.dodgeThis;
 	this.background;
-	this.gameResult;
 	this.score = 0;
-	this.moveMe = false;
-	this.dodgeSpeedX = 300;
 	this.spaceShip;
+	this.speedMultiplier = 1;
 },
 
 
@@ -52,17 +47,23 @@ MyGame.prototype =
 {
     subclassSetupLayers: function()
     {
+        this.CreateLayer("background");
+        this.CreateLayer("solar");
+        this.CreateLayer("asteroid");
+        this.CreateLayer("spaceship");
+        this.CreateLayer("gascloud");
+        this.CreateLayer("specials");
+        this.CreateLayer("UI");
     },
 
     subclassStartPlaying: function()
     {
 		this.score = 0;
-		this.background =  CreateScreenUI(this,0.5,0.5,"game_background","background");
-		this.scoreText = CreateTextUI(this,0.5,0.1,"Score: ","bold 40px Arial","center","black");
-		this.circle = CreateButtonUI(this,0.1,0.5,"selection",this.itemClicked.bind(this),1,"background");
-		this.dodgeThis = CreateScreenUI(this,-0.2,0.5,"selection","background");
-		this.spaceShip = this.CreateWorldEntity(Spaceship).Setup(0.5,0.9,"spaceship");
-
+		this.bgManager = new BackgroundManager(this);
+		this.bgManager.Setup();
+		this.scoreText = CreateTextUI(this,0.5,0.05,"Score: ","bold 40px Arial","center","White");
+		this.spaceShip = this.CreateWorldEntity(Spaceship).Setup(0.5,0.9,"spaceship","spaceship");
+		
 		this.spawner = new Spawner(this);
 		this.enemies = [];
     },
@@ -74,20 +75,7 @@ MyGame.prototype =
     subclassUpdateGame: function(elapsedTime)
     {
     	this.spawner.update(elapsedTime);
-
-		this.circle.x += elapsedTime*300;
-		this.circle.y += elapsedTime*300;
-		if(this.circle.x > this.Width())
-		{
-			this.gameResult = "loss";
-			//this.EndGame();
-		}
-		if(this.moveMe)
-		{
-			this.circle.x = this.mMouseX;
-			this.circle.y = this.mMouseY;
-		}
-		this.dodgeThis.x += elapsedTime	*this.dodgeSpeedX;
+		this.bgManager.moveObjects(elapsedTime);
 		
 		//Update Score
 		this.scoreText.text = "Score: " + this.score;
@@ -105,16 +93,6 @@ MyGame.prototype =
     subclassEndGame: function()
     {
     },
-	
-	itemClicked: function()
-	{
-		this.gameResult = "win";
-		var newY = Math.random()*536;
-		//this.circle.x = 0.1;
-		//this.circle.y = newY;
-		this.moveMe = true;
-		this.score += 10;
-	},
 	
 	collided: function(obj1X,obj1Y,obj2X,obj2Y,totalDistance)
 	{
