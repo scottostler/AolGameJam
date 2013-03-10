@@ -66,12 +66,27 @@ MyGame = function()
         {id:'static_back',   			url:'images/gameassets/static_back.png'},
         {id:'scroll',   				url:'images/gameassets/scroll.png'},
         {id:'ast_death',   				url:'images/gameassets/ast_death.png'},
+        {id:'big_ast_death',   			url:'images/gameassets/big_ast_death.png'},
+        {id:'giant_ast_death',   		url:'images/gameassets/giant_ast_death.png'},
         {id:'asteroid_small', 			url:'images/gameassets/asteroid_small.png'},
         {id:'asteroid_big', 			url:'images/gameassets/asteroid_big.png'},
-        {id:'asteroid_giant', 			url:'images/gameassets/asteroid_giant.png'}
+        {id:'shot', 					url:'images/gameassets/shot.png'},
+        {id:'three_beam', 				url:'images/gameassets/three_beam.png'},
+        {id:'energy_ball',   			url:'images/gameassets/energy_ball.png'},
+        {id:'asteroid_giant', 			url:'images/gameassets/asteroid_giant.png'},
+        {id:'MX_GAME',					url:'audio/MX_GAME.ogg', 			assetType:"audio"}
+		
     ];
 
     var gameSounds = [
+        {id:'Laser1',					url:'audio/Laser1.ogg', 				assetType:"audio"},
+		{id:'Laser2',					url:'audio/Laser2.ogg', 				assetType:"audio"},
+		{id:'Laser3',					url:'audio/Laser3.ogg', 				assetType:"audio"},
+        {id:'Explosion1_01',			url:'audio/Explosion1_01.ogg', 			assetType:"audio"},
+		{id:'Explosion2_01',			url:'audio/Explosion2_01.ogg', 			assetType:"audio"},
+		{id:'Explosion2_02',			url:'audio/Explosion2_02.ogg', 			assetType:"audio"},
+		{id:'INTRO_SFX',				url:'audio/INTRO_SFX.ogg', 				assetType:"audio"},
+		{id:'TitleScreenAmbience',		url:'audio/TitleScreenAmbience.ogg', 	assetType:"audio"},
     ];
 
     if(!this.oniOS())
@@ -82,7 +97,7 @@ MyGame = function()
 	for(var iter = 0; iter < 180; iter++)
 	{
 		var newId = "movie_"+iter;
-		var newUrl = "images/LaunchIntro/Spaceship _Layers_00";
+		var newUrl = "images/LaunchIntro/Spaceship _Layers_1_00";
 		if(iter < 100)
 		{
 			newUrl += "0";
@@ -104,6 +119,11 @@ MyGame = function()
 	this.score = 0;
 	this.spaceShip;
 	this.speedMultiplier = 1;
+	this.lose = false;
+	
+	
+    window.onblur = this.onBlur.bind(this);
+    window.pagehide = this.pageHide.bind(this);
 }
 
 MyGame.prototype =
@@ -148,6 +168,7 @@ MyGame.prototype =
     subclassStartPlaying: function()
     {
 		this.score = 0;
+		this.lose = false;
 		this.bgManager = new BackgroundManager(this);
 		this.bgManager.Setup();
 		this.scoreText = CreateTextUI(this,0.5,0.05,"Score: ","bold 40px Arial","center","White");
@@ -162,9 +183,10 @@ MyGame.prototype =
         meter.scaleX = meter.scaleY = meterScale;
 
 		this.spawner = new Spawner(this);
-
         this.powerMeterBaseWidth = 340;
         this.powerMeterMask = this.createBox('#222', 280, this.Height() - 64, this.powerMeterBaseWidth, 18, "UI");
+		this.powerMeterMask.alpha = 0.8;
+		this.audioManager.Play({id:"MX_GAME", loop:false});
     },
 
     subclassSetupLevel: function(levelNumber)
@@ -173,6 +195,10 @@ MyGame.prototype =
 
     subclassUpdateGame: function(elapsedTime)
     {
+		if(this.lose)
+		{
+			this.EndGame();
+		}
     	this.spawner.update(elapsedTime);
 		this.bgManager.moveObjects(elapsedTime);
 		
@@ -208,6 +234,24 @@ MyGame.prototype =
     {
     },
 
+    onBlur: function()
+    {
+        if(this.mPlaying && !this.levelOver)
+        {
+            this.PauseGame(true);
+            this.audioManager.Mute();
+        }
+    },
+
+    pageHide: function()
+    {
+        if(this.mPlaying)
+        {
+            this.PauseGame(true);
+            this.audioManager.Mute();
+        }
+    },
+	
 	
 	itemClicked: function()
 	{
@@ -240,8 +284,6 @@ function CreateButtonUI(screen,xPos,yPos,name,callback,frames,layer)
 													screen.mScreenManager.YFromPercentage(yPos),
 													name, callback, frames, layer);
 }
-
-
 
 
 

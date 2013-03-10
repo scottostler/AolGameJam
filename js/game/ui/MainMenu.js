@@ -18,18 +18,21 @@ MainMenu.prototype =
 		var ship = 			CreateScreenUI(this,0.5,0.6,"mm_SpaceShip","background");
 		var GameName = 		CreateScreenUI(this,0.5,0.1,"GameName","background");
 		//this.titleText = 	CreateTextUI(this,0.5,0.1,"Main Menu","bold 40px Arial","center","white");
-		var playButton =	CreateButtonUI(this,0.5,0.4,"PlayButton",this.goToHelp.bind(this),1,"background");
+		var playButton =	CreateButtonUI(this,0.5,0.4,"PlayButton",this.playGame.bind(this),1,"background");
 		var HelpButton =	CreateButtonUI(this,0.5,0.45,"HelpButton",this.doNothing.bind(this),1,"background");
 		var HighScoreButton =	CreateButtonUI(this,0.5,0.5,"HighScoreButton",this.goToHigh.bind(this),1,"background");
 		//playButton.addChild(CreateTextUI(this,0,0,"Play Game","bold 32px Arial","center","black"));
 		
+		this.Game().audioManager.Play({id:"TitleScreenAmbience", loop:true});
 	},
 	
 
 	playGame: function(func)
 	{
+		this.Game().audioManager.Pause("TitleScreenAmbience");
 		this.Close();
-		this.Game().PlayGame();
+		this.goToHelp();
+		
 	},
 	goToHigh: function()
 	{
@@ -38,6 +41,11 @@ MainMenu.prototype =
 	},
 	doNothing: function()
 	{
+	},
+	
+	Update: function()
+	{
+		//console.log("Open");
 	},
 	goToHelp: function()
 	{

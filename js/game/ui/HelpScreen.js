@@ -17,17 +17,23 @@ HelpScreen.prototype =
 {
 	Setup: function()
 	{
-		this.Game().mainMenuInstance = this;
+		this.Game().helperInstance = this;
+		this.parent = this.Game();
 		this.iter = 0;
 		this.timePassed = 0;
 		this.currentBg = CreateScreenUI(this,0.5,0.5,"MainBackground","background");
+		this.Game().audioManager.Play({id:"INTRO_SFX", loop:false});
 		
 	},
 	
 	Update: function(elapsedTime)
 	{
+		if(this.parent == null)
+		{
+			return;
+		}
 		this.timePassed += elapsedTime;
-		this.iter = Math.floor(this.timePassed*60);
+		this.iter = Math.floor(this.timePassed*90);
 		var newId = "movie_"+this.iter;
 		if(this.iter < 180)
 		{
@@ -49,6 +55,7 @@ HelpScreen.prototype =
 		this.iter++;
 		if(this.iter > 200)
 		{
+			this.parent = null;
 			this.fadeScreen.markForRemoval();
 			this.playGame();
 		}

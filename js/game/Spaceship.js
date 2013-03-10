@@ -96,6 +96,7 @@ Spaceship.prototype =
 			{
 				enemy.visible = false;
 				enemy.markForRemoval();
+				this.mGame.lose = true;
 			}
 		}
 	},
