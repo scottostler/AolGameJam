@@ -30,8 +30,11 @@ MainMenu.prototype =
 	playGame: function(func)
 	{
 		this.Game().audioManager.Pause("TitleScreenAmbience");
-		this.Close();
-		this.goToHelp();
+
+		playVideo('video/Spaceship_Launch.mov', 6500, function() {
+			this.Close();
+			this.Game().PlayGame();
+		}.bind(this));
 		
 	},
 	goToHigh: function()

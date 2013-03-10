@@ -122,8 +122,7 @@ MyGame = function()
 	this.speedMultiplier = 1;
 	this.lose = false;
 	this.maxHuge = 0;
-	
-	
+
     window.onblur = this.onBlur.bind(this);
     window.pagehide = this.pageHide.bind(this);
 }
@@ -168,12 +167,14 @@ MyGame.prototype =
 
     subclassStartPlaying: function()
     {
-		this.score = 0;
 		this.lose = false;
+        this.score = 0;
 		this.bgManager = new BackgroundManager(this);
 		this.bgManager.Setup();
-		if(this.scoreText == null)
+
+		if(this.scoreText == null) {
 			this.scoreText = CreateTextUI(this,0.5,0.05,"Score: ","bold 40px Arial","center","White");
+        }
 		this.spaceShip = this.CreateWorldEntity(Spaceship).Setup(0.5,0.9,"spaceship","spaceship");
 		
         this.CreateWorldEntity(TGE.ScreenEntity).Setup(
@@ -183,7 +184,7 @@ MyGame.prototype =
         var meter = this.CreateWorldEntity(TGE.ScreenEntity).Setup( 450, this.Height() - 53, "power_meter", "UI");
         meter.scaleX = meter.scaleY = meterScale;
 
-		var MenuButton =	CreateButtonUI(this,0.8,0.05,"MenuButton",this.onBlur.bind(this),1,"background");
+		var MenuButton = CreateButtonUI(this,0.8,0.05,"MenuButton",this.onBlur.bind(this),1,"background");
 		this.spawner = new Spawner(this);
         this.powerMeterBaseWidth = 340;
         this.powerMeterMask = this.createBox('#222', 280, this.Height() - 64, this.powerMeterBaseWidth, 18, "UI");
@@ -235,7 +236,11 @@ MyGame.prototype =
 
     subclassEndGame: function()
     {
-        GAMESAPI.postScore(this.score);
+        GAMESAPI.postScore(this.score, function() {
+            console.log("Posted score of ", this.score)
+        }.bind(this), function(r) {
+            console.error("Error posting score", r)
+        });
     },
 
     onBlur: function()

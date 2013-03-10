@@ -38,13 +38,24 @@
     <script src="js/game.js"></script>
 
     <script>
+        if (!window.console) {
+            window.console = {
+                error: function() {},
+                log: function() {}
+            };
+        }
+
         function handleError(label) {
             return function(response) {
                 console.error(label, JSON.stringify(response));
             };
         };
 
-        GAMESAPI.setGameSecret('q6h27hxvxljvx7hqnyvhrydyq');
+        if (location.href.match(/localhost/)) {
+            location.href = '#gameId=121530&accessToken=121530_cg85w9yvtvmhk4r1cnnk_jdnhd4fqtjmnq84w56yrg99wl8';
+        }
+
+        GAMESAPI.setGameSecret('q6h27hxvxljvx7h qnyvhrydyq');
         GAMESAPI.beginGameSession(function(response) {
         }, handleError('beginGameSession'));
     </script>
@@ -59,8 +70,10 @@
     <!-- landscape game 
     <div id="game_canvas" style="position:relative; width:960px; height:536px; text-align: center;"></div>-->
     <!-- portrait game -->
-    <div id="game_canvas" style="position:relative; width:640px; height:832px; text-align: center;"></div> 
-
+    <div id="game_canvas" style="position:relative; width:640px; height:832px; text-align: center;">
+        <video id="video_player" style="height: 100%; width: 100%; display:none">
+        </video>
+    </div> 
     <div id="social_leaderboard"></div>
 </div>
 
