@@ -16,7 +16,7 @@ MainMenu.prototype =
 		
 		var background = 	CreateScreenUI(this,0.5,0.5,"MainBackground","background");
 		var ship = 			CreateScreenUI(this,0.5,0.6,"mm_SpaceShip","background");
-		var GameName = 		CreateScreenUI(this,0.5,0.1,"GameName","background");
+		var GameName = 		CreateScreenUI(this,0.5,0.13,"AsteroidHater","background");
 		//this.titleText = 	CreateTextUI(this,0.5,0.1,"Main Menu","bold 40px Arial","center","white");
 		var playButton =	CreateButtonUI(this,0.5,0.4,"PlayButton",this.playGame.bind(this),1,"background");
 	//	var HelpButton =	CreateButtonUI(this,0.5,0.45,"HelpButton",this.doNothing.bind(this),1,"background");

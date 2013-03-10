@@ -78,6 +78,7 @@ Bullet.prototype =
             if (bullet.level < enemy.level) {
                 bullet.visible = false;
                 bullet.markForRemoval();
+				var shot_fizz = CreateScreenUI(this.mGame,xPos,yPos,"ast_death","asteroid");
             }
 			else if(bullet.level == enemy.level)
 			{
