@@ -98,6 +98,7 @@ MyGame = function()
 		{id:'Explosion2_02',			url:'audio/Explosion2_02.ogg', 			assetType:"audio"},
 		{id:'Explosion3_01',			url:'audio/Explosion3_01.ogg', 			assetType:"audio"},
 		{id:'INTRO_SFX',				url:'audio/INTRO_SFX.ogg', 				assetType:"audio"},
+		{id:'UI_Click',					url:'audio/UI_Click.ogg', 				assetType:"audio"},
 		{id:'ShipDeath',				url:'audio/ShipDeath.ogg', 				assetType:"audio"},
 		
 		{id:'TitleScreenAmbience',		url:'audio/TitleScreenAmbience.ogg', 	assetType:"audio"},

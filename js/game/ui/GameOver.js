@@ -13,6 +13,10 @@ GameOver.prototype =
 {
 	Setup: function()
 	{
+		if(this.Game().win)
+		{
+			this.gotoMain();
+		}
 		var background = 	CreateScreenUI(this,0.5,0.5,"MainBackground","UI");
 		this.Game().gameOverInstance = this;
 		
@@ -39,13 +43,14 @@ GameOver.prototype =
 
 	goToMain: function()
 	{
+		this.Game().audioManager.Play({id:"UI_Click", loop:false});
 		this.Close();
 		this.Game().GotoMainMenu();
 	},
 	
 	replayGame: function()
 	{
-		
+		this.Game().audioManager.Play({id:"UI_Click", loop:false});
 		this.Close();
 		this.Game().PlayGame();
 	},

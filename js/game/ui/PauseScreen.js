@@ -21,6 +21,7 @@ PauseScreen.prototype.Setup = function()
 
 PauseScreen.prototype.resumeGame = function()
 {
+	this.Game().audioManager.Play({id:"UI_Click", loop:false});
     this.Game().PauseGame(false);
     if(!this.wasMuted)
     {
@@ -30,6 +31,7 @@ PauseScreen.prototype.resumeGame = function()
 };
 PauseScreen.prototype.goToMain = function()
 {
+	this.Game().audioManager.Play({id:"UI_Click", loop:false});
 	this.Close();
 	this.Game().GotoMainMenu();
 };
