@@ -101,7 +101,8 @@ else
         "js/game/ui/LoadingScreen.js",
         "js/game/ui/MainMenu.js",
         "js/game/ui/PauseScreen.js",
-        "js/game/ui/GameOver.js"
+        "js/game/ui/GameOver.js",
+		"js/game/ui/HighScore.js"
     );
 }
 

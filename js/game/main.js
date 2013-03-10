@@ -51,7 +51,11 @@ MyGame = function()
         {id:'PlayButton',     		 	url:'images/screens/mainmenu/PlayButton.png'},
         {id:'HelpButton',     		 	url:'images/screens/mainmenu/HelpButton.png'},
         {id:'HighScoreButton',     	 	url:'images/screens/mainmenu/HighScoreButton.png'},
-        {id:'GameName',     	 	url:'images/screens/mainmenu/GameName.png'},
+        {id:'GameName',     	 		url:'images/screens/mainmenu/GameName.png'},
+		
+        {id:'BackButton',     	 		url:'images/screens/highscore/BackButton.png'},
+        {id:'HighScores',     	 		url:'images/screens/highscore/HighScores.png'},
+        {id:'Numbers',     	 			url:'images/screens/highscore/Numbers.png'},
 		
         {id:'gameover_background', 		url:'images/screens/gameover/gameover_background.jpg'},
 		
