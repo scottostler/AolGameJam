@@ -130,7 +130,6 @@ MyGame = function()
 
 MyGame.prototype =
 {
-
     getAsteroids: function() {
         return this.mGameManager.mObjectsArray.filter(function(o) {
             return o instanceof Asteroid && !o.mMarkedForRemoval;
@@ -236,6 +235,7 @@ MyGame.prototype =
 
     subclassEndGame: function()
     {
+        GAMESAPI.postScore(this.score);
     },
 
     onBlur: function()
