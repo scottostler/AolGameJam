@@ -33,7 +33,7 @@ HelpScreen.prototype =
 			return;
 		}
 		this.timePassed += elapsedTime;
-		this.iter = Math.floor(this.timePassed*90);
+		this.iter = Math.floor(this.timePassed*30);
 		var newId = "movie_"+this.iter;
 		if(this.iter < 180)
 		{
