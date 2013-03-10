@@ -37,6 +37,7 @@ MyGame = function()
     var loadingAssets = [
         {id:'splash',  		 			url:'images/screens/loading/background.jpg'},
         {id:'FuelingShip',  		 	url:'images/screens/loading/FuelingShip.png'},
+        {id:'AsteroidHater',  		 	url:'images/screens/loading/AsteroidHater.png'},
 
     ];
 
@@ -65,6 +66,8 @@ MyGame = function()
         {id:'ReplayButton', 			url:'images/screens/gameover/ReplayButton.png'},
 		
         {id:'PauseButton',   			url:'images/gameassets/PauseButton.png'},
+        {id:'MainMenuButton',   		url:'images/gameassets/MainMenuButton.png'},
+        {id:'ContinueButton',   		url:'images/gameassets/ContinueButton.png'},
         {id:'selection',   				url:'images/gameassets/selection.png'},
         {id:'spaceship',   				url:'images/gameassets/spaceship.png'},
         {id:'static_back',   			url:'images/gameassets/static_back.png'},
@@ -75,11 +78,13 @@ MyGame = function()
         {id:'asteroid_small', 			url:'images/gameassets/asteroid_small.png'},
         {id:'asteroid_big', 			url:'images/gameassets/asteroid_big.png'},
         {id:'shot', 					url:'images/gameassets/shot.png'},
+        {id:'shot_fizz', 				url:'images/gameassets/shot_fizz.png'},
         {id:'three_beam', 				url:'images/gameassets/three_beam.png'},
         {id:'energy_ball',   			url:'images/gameassets/energy_ball.png'},
         {id:'asteroid_giant', 			url:'images/gameassets/asteroid_giant.png'},
         {id:'MenuButton', 				url:'images/gameassets/MenuButton.png'},
         {id:'ship_death', 				url:'images/gameassets/ship_death.png'},
+		
         {id:'MX_GAME',					url:'audio/MX_GAME.ogg', 			assetType:"audio"}
 		
     ];
