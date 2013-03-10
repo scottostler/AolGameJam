@@ -10,7 +10,7 @@ Bullet.prototype =
     Setup: function(spaceship)
     {
         var yPos = spaceship.y - spaceship.height / 2;
-        Bullet.superclass.Setup.call(this, spaceship.x, yPos, "selection");
+        Bullet.superclass.Setup.call(this, spaceship.x, yPos, "selection","spaceship");
 
         var scale = spaceship.epoch > 2 ? 1 : 0.5;
         this.scaleX = scale;
