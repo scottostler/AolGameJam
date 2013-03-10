@@ -19,8 +19,6 @@ Spawner.prototype =
 		this.accumulatedTime += elapsedTime;
 		this.totalGameTime += elapsedTime;
 		
-		console.log(this.totalGameTime);
-
 		if (this.totalGameTime > this.gameLength) {
 			this.mGame.win = true;
 			return;
