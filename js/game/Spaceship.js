@@ -14,6 +14,7 @@ Spaceship = function(game)
 	this.xOffset = 0;
 	this.yOffset = 50;
 	this.radius = 50;
+	this.maxPowerCharge = 2.0;
 }
 
 
@@ -27,14 +28,13 @@ Spaceship.prototype =
         this.LoadAnimation("flying",sprite,1,3,3,24,true);
         this.PlayAnimation("flying");
 		this.isDragged = false;
-		this.epoch = 0;
+		this.powerCharge = 0;
 		return this;
     },
 
     subclassUpdate: function(elapsedTime)
     {
     	this.fireCooldown -= elapsedTime;
-		//this.mouseClickedMe();
 		this.collisionDetection();
 		this.x = this.mGame.mMouseX;
 		if(this.mGame.mMouseY < this.mGame.mScreenManager.XFromPercentage(this.highestBarrier)+this.yOffset)
@@ -62,12 +62,16 @@ Spaceship.prototype =
 		}
 	},
 
-	resetEpoch: function(){
-		this.epoch = 0;
+	resetPowerCharge: function(){
+		this.powerCharge = 0;
 	},
 
-	updateEpoch: function(elapsedTime) {
-		this.epoch += elapsedTime;
+	updatePowerCharge: function(elapsedTime) {
+		this.powerCharge += elapsedTime;
+	},
+
+	powerChargeFraction: function() {
+		return Math.min(1, this.powerCharge / this.maxPowerCharge);
 	},
 
 	attemptFireBullet: function() {
