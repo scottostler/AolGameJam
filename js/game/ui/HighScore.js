@@ -23,7 +23,7 @@ HighScore.prototype =
 		var BackButton =	CreateButtonUI(this,0.5,0.88,"BackButton",this.playGame.bind(this),1,"background");
 		//playButton.addChild(CreateTextUI(this,0,0,"Play Game","bold 32px Arial","center","black"));
 
-		GAMESAPI.getLeaders(GAMESAPI.DATA.DAILY, function(response) {
+		GAMESAPI.getLeaders(GAMESAPI.DATA.ALLTIME, function(response) {
 			var scores = response['data']['scores'];
 			this.displayLeaderboard(scores);
 		}.bind(this), function(response) {
