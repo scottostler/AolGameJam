@@ -10,6 +10,8 @@ Spaceship = function(game)
     this.mSpeed = 250;
 	this.isDragged = false;
 	this.highestBarrier = 0.7;
+	this.fireCooldown = 0;
+	this.xOffset = 0;
 	this.yOffset = 50;
 	this.radius = 50;
 }
@@ -22,13 +24,19 @@ Spaceship.prototype =
 		var x = this.mGame.mScreenManager.XFromPercentage(xPos);
 		var y = this.mGame.mScreenManager.YFromPercentage(yPos);
         Spaceship.superclass.Setup.call(this,x,y,sprite,background);
+<<<<<<< HEAD
         this.LoadAnimation("flying",sprite,1,3,3,24,true);
         this.PlayAnimation("flying");
+=======
+		this.isDragged = false;
+		this.epoch = 0;
+>>>>>>> e1e55f7f04fbff4abebb270fe4516c7ba61a2eb8
 		return this;
     },
 
     subclassUpdate: function(elapsedTime)
     {
+    	this.fireCooldown -= elapsedTime;
 		this.mouseClickedMe();
 		this.collisionDetection();
 		this.x = this.mGame.mMouseX;
@@ -55,10 +63,24 @@ Spaceship.prototype =
 				this.isDragged = true;
 			}
 		}
-		if(!this.mGame.isMouseDown())
-		{
-			this.isDragged = false;
+	},
+
+	resetEpoch: function(){
+		this.epoch = 0;
+	},
+
+	updateEpoch: function(elapsedTime) {
+		this.epoch += elapsedTime;
+	},
+
+	attemptFireBullet: function() {
+		if (this.fireCooldown > 0) {
+			return null;
 		}
+
+		this.fireCooldown = 0.5;
+		var bullet = this.mGame.CreateWorldEntity(Bullet).Setup(this);
+		return bullet;
 	},
 	
 	collisionDetection: function()
@@ -68,12 +90,16 @@ Spaceship.prototype =
 		var y = this.y-this.yOffset;
 		for(var i = enemyArray.length-1; i > -1; i--)
 		{
+<<<<<<< HEAD
 			if(this.mGame.collided(enemyArray[i].x,enemyArray[i].y,x,y,this.radius+enemyArray[i].width/2))
+=======
+			var enemy = enemyArray[i];
+			if(collided(enemy.x,enemy.y,x,y,this.radius+enemy.radius))
+>>>>>>> e1e55f7f04fbff4abebb270fe4516c7ba61a2eb8
 			{
-				enemyArray[i].visible = false;
-				enemyArray[i].markForRemoval();
+				enemy.visible = false;
+				enemy.markForRemoval();
 				enemyArray.splice(i,1);
-				
 			}
 		}
 	},
@@ -82,5 +108,6 @@ Spaceship.prototype =
 	{
 		this.markForRemoval();
 	},
+
 }
 extend(Spaceship,TGE.ScreenEntity);

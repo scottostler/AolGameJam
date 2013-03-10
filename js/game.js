@@ -97,6 +97,7 @@ else
         "js/game/Spawner.js",
         "js/game/Asteroid.js",
         "js/game/BackgroundManager.js",
+        "js/game/Bullet.js",
         "js/game/ui/LoadingScreen.js",
         "js/game/ui/MainMenu.js",
         "js/game/ui/PauseScreen.js",
