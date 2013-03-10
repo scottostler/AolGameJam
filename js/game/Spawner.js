@@ -4,7 +4,7 @@ Spawner = function(game) {
 	this.accumulatedTime = 0;
 	this.rateOfAsteroid = 1.4;
 
-	this.gameLength = 10;
+	this.gameLength = 60;
 	this.stopSpawningSecondsBefore = 3;
 };
 
