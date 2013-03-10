@@ -69,12 +69,22 @@ MyGame = function()
 	this.score = 0;
 	this.spaceShip;
 	this.speedMultiplier = 1;
-},
-
-
+}
 
 MyGame.prototype =
 {
+    getAsteroids: function() {
+        return this.mGameManager.mObjectsArray.filter(function(o) {
+            return o instanceof Asteroid && !o.mMarkedForRemoval;
+        });
+    },
+
+    getBullets: function() {
+        return this.mGameManager.mObjectsArray.filter(function(o) {
+            return o instanceof Bullet && !o.mMarkedForRemoval;
+        });
+    },
+
     subclassSetupLayers: function()
     {
         this.CreateLayer("background");
@@ -95,8 +105,6 @@ MyGame.prototype =
 		this.spaceShip = this.CreateWorldEntity(Spaceship).Setup(0.5,0.9,"spaceship","spaceship");
 		
 		this.spawner = new Spawner(this);
-		this.enemies = [];
-		this.bullets = [];
     },
 
     subclassSetupLevel: function(levelNumber)
@@ -117,10 +125,7 @@ MyGame.prototype =
 	checkMouseState: function(elapsedTime) {
 		var isMouseReleased = this.wasMasDown && !this.isMouseDown();
 		if(isMouseReleased) {
-			var bullet = this.spaceShip.attemptFireBullet();
-			if (bullet) {
-				this.bullets.push(bullet);
-			}
+			this.spaceShip.attemptFireBullet();
 			this.spaceShip.resetEpoch();
 		} else if (this.isMouseDown()) {
 			this.spaceShip.updateEpoch(elapsedTime);
@@ -136,22 +141,10 @@ MyGame.prototype =
     subclassEndGame: function()
     {
     },
-	
-	collided: function(obj1X,obj1Y,obj2X,obj2Y,totalDistance)
-	{
-		
-		var xDistance = obj1X - obj2X;
-		var yDistance = obj1Y - obj2Y;
-		var distance = Math.sqrt(yDistance*yDistance+xDistance*xDistance);
-		return ( distance < totalDistance);
-	},
 
 	itemClicked: function()
 	{
 		this.gameResult = "win";
-		var newY = Math.random()*536;
-		//this.circle.x = 0.1;
-		//this.circle.y = newY;
 		this.moveMe = true;
 		this.score += 10;
 	}

@@ -34,7 +34,7 @@ Bullet.prototype =
     },
 
     detectAsteroidCollisions: function() {
-        var eIndex = detectFirstCollision(this, this.mGame.enemies, function(bullet, enemy) {
+        var eIndex = detectFirstCollision(this, this.mGame.getAsteroids(), function(bullet, enemy) {
             if (!bullet.isMega) {
                 bullet.visible = false;
                 bullet.markForRemoval();
@@ -45,9 +45,6 @@ Bullet.prototype =
         });
 
         if (eIndex >= 0) {
-            var bIndex = this.mGame.bullets.indexOf(this);
-            this.mGame.bullets.splice(bIndex, 1);
-            this.mGame.enemies.splice(eIndex, 1);
             this.mGame.score += 100;
         }
     }

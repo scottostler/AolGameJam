@@ -76,26 +76,21 @@ Spaceship.prototype =
 		}
 
 		this.fireCooldown = 0.5;
-		var bullet = this.mGame.CreateWorldEntity(Bullet).Setup(this);
-		return bullet;
+		this.mGame.CreateWorldEntity(Bullet).Setup(this);
 	},
 	
 	collisionDetection: function()
 	{
-		var enemyArray = this.mGame.enemies;
+		var enemyArray = this.mGame.getAsteroids();
 		var x = this.x;
 		var y = this.y-this.yOffset;
 		for(var i = enemyArray.length-1; i > -1; i--)
 		{
-			if(this.mGame.collided(enemyArray[i].x,enemyArray[i].y,x,y,this.radius+enemyArray[i].width/2))
+			var enemy = enemyArray[i];
+			if(collided(enemy.x,enemy.y,x,y,this.radius+enemy.width/2))
 			{
-				var enemy = enemyArray[i];
-				if(collided(enemy.x,enemy.y,x,y,this.radius+enemy.radius))
-				{
-					enemy.visible = false;
-					enemy.markForRemoval();
-					enemyArray.splice(i,1);
-				}
+				enemy.visible = false;
+				enemy.markForRemoval();
 			}
 		}
 	},
