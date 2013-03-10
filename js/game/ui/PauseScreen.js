@@ -10,8 +10,8 @@ function PauseScreen(screenManager)
 
 PauseScreen.prototype.Setup = function()
 {
-	var playButton =	CreateButtonUI(this,0.5,0.5,"PlayButton",this.resumeGame.bind(this),1,"UI");
-
+	var playButton =	CreateButtonUI(this,0.5,0.5,"PauseButton",this.resumeGame.bind(this),1,"UI");
+	
     this.wasMuted = this.Game().audioManager.mMuted;
     this.Game().audioManager.Mute();
 };

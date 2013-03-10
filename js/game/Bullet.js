@@ -23,7 +23,7 @@ Bullet.prototype =
 		{
 			this.type = "three_beam";
 			this.sound = "Laser2";
-			this.speed =	300;
+			this.speed =	500;
 			row = 1;
 			col = 3;
 			frames = 3;
@@ -34,7 +34,7 @@ Bullet.prototype =
 		{
 			this.type = "energy_ball";
 			this.sound = "Laser3";
-			this.speed =	200;
+			this.speed =	800;
 			row = 1;
 			col = 4;
 			frames = 4;
@@ -118,7 +118,15 @@ Bullet.prototype =
 			col = 5;
 			frames = 15;
 			framerate = 24;
-			soundName = "Explosion2_01";
+			var rand = Math.floor(Math.random()*2);
+			if(rand == 0)
+			{
+				soundName = "Explosion2_01";
+			}
+			else
+			{
+				soundName = "Explosion2_02";
+			}
 			var scaleMe = 2;
 		}
 		else if(type == "asteroid_giant")
@@ -128,7 +136,7 @@ Bullet.prototype =
 			col = 5;
 			frames = 25;
 			framerate = 24;
-			soundName = "Explosion2_02";
+			soundName = "Explosion3_01";
 			var scaleMe = 10;
 			
 		}

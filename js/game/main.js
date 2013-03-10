@@ -59,8 +59,12 @@ MyGame = function()
         {id:'HighScores',     	 		url:'images/screens/highscore/HighScores.png'},
         {id:'Numbers',     	 			url:'images/screens/highscore/Numbers.png'},
 		
-        {id:'gameover_background', 		url:'images/screens/gameover/gameover_background.jpg'},
+        {id:'GameOver', 				url:'images/screens/gameover/GameOver.png'},
+        {id:'MainMenuButton', 			url:'images/screens/gameover/MainMenuButton.png'},
+        {id:'Score', 					url:'images/screens/gameover/Score.png'},
+        {id:'ReplayButton', 			url:'images/screens/gameover/ReplayButton.png'},
 		
+        {id:'PauseButton',   			url:'images/gameassets/PauseButton.png'},
         {id:'selection',   				url:'images/gameassets/selection.png'},
         {id:'spaceship',   				url:'images/gameassets/spaceship.png'},
         {id:'static_back',   			url:'images/gameassets/static_back.png'},
@@ -75,6 +79,7 @@ MyGame = function()
         {id:'energy_ball',   			url:'images/gameassets/energy_ball.png'},
         {id:'asteroid_giant', 			url:'images/gameassets/asteroid_giant.png'},
         {id:'MenuButton', 				url:'images/gameassets/MenuButton.png'},
+        {id:'ship_death', 				url:'images/gameassets/ship_death.png'},
         {id:'MX_GAME',					url:'audio/MX_GAME.ogg', 			assetType:"audio"}
 		
     ];
@@ -86,7 +91,10 @@ MyGame = function()
         {id:'Explosion1_01',			url:'audio/Explosion1_01.ogg', 			assetType:"audio"},
 		{id:'Explosion2_01',			url:'audio/Explosion2_01.ogg', 			assetType:"audio"},
 		{id:'Explosion2_02',			url:'audio/Explosion2_02.ogg', 			assetType:"audio"},
+		{id:'Explosion3_01',			url:'audio/Explosion3_01.ogg', 			assetType:"audio"},
 		{id:'INTRO_SFX',				url:'audio/INTRO_SFX.ogg', 				assetType:"audio"},
+		{id:'ShipDeath',				url:'audio/ShipDeath.ogg', 				assetType:"audio"},
+		
 		{id:'TitleScreenAmbience',		url:'audio/TitleScreenAmbience.ogg', 	assetType:"audio"},
     ];
 
@@ -123,6 +131,7 @@ MyGame = function()
 	this.lose = false;
 	this.maxHuge = 0;
 	
+	this.allAsteroids = [];
 	
     window.onblur = this.onBlur.bind(this);
     window.pagehide = this.pageHide.bind(this);
@@ -169,16 +178,21 @@ MyGame.prototype =
 
     subclassStartPlaying: function()
     {
+		for(var i = this.allAsteroids.length-1; i > -1; i++)
+		{
+			this.allAsteroids[i].markForRemoval();
+			this.allAsteroids.splice(i,1);
+		}
+		
 		this.score = 0;
 		this.lose = false;
 		this.bgManager = new BackgroundManager(this);
 		this.bgManager.Setup();
 		if(this.scoreText == null)
-			this.scoreText = CreateTextUI(this,0.5,0.05,"Score: ","bold 40px Arial","center","White");
+			this.scoreText = CreateTextUI(this,0.05,0.05,"Score: ","bold 40px Digital-7","left","White");
 		this.spaceShip = this.CreateWorldEntity(Spaceship).Setup(0.5,0.9,"spaceship","spaceship");
 		
-        this.CreateWorldEntity(TGE.ScreenEntity).Setup(
-            150, this.Height() - 50, "power", "UI");
+        this.CreateWorldEntity(TGE.ScreenEntity).Setup(150, this.Height() - 50, "power", "UI");
 
         var meterScale = 0.5;
         var meter = this.CreateWorldEntity(TGE.ScreenEntity).Setup( 450, this.Height() - 53, "power_meter", "UI");

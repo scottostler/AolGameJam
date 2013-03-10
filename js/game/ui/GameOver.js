@@ -13,17 +13,28 @@ GameOver.prototype =
 {
 	Setup: function()
 	{
+		var background = 	CreateScreenUI(this,0.5,0.5,"MainBackground","UI");
 		this.Game().gameOverInstance = this;
-		var background = 	CreateScreenUI(this,0.5,0.5,"gameover_background","UI");
-		this.titleText = 	CreateTextUI(this,0.5,0.1,"GameOver","bold 40px Arial","center","black");
 		
+		var resultText = 	CreateScreenUI(this,0.5,0.2,"GameOver","UI");
+		resultText.scaleX = 0.9;
+		resultText.scaleY = 0.9;
+		var other = 	CreateScreenUI(this,0.5,0.32,"Score","UI");
+		if(this.scoreText == null)
+			this.scoreText = CreateTextUI(this,0.8,0.315,""+this.Game().score,"bold 64px Arial","center","red");
 		//Create Button to replay game
-		var replayGame =		CreateButtonUI(this,0.3,0.5,"button",this.replayGame.bind(this),1,"UI");
-		replayGame.addChild(CreateTextUI(this,0,0,"Replay Game","bold 24px Arial","center","black"));
+		var replayGame =		CreateButtonUI(this,0.5,0.55,"ReplayButton",this.replayGame.bind(this),1,"UI");
 		
-		var quitGame =		CreateButtonUI(this,0.7,0.5,"button",this.goToMain.bind(this),1,"UI");
-		quitGame.addChild(CreateTextUI(this,0,0,"Main Menu","bold 32px Arial","center","black"));
+		var quitGame =		CreateButtonUI(this,0.5,0.65,"MainMenuButton",this.goToMain.bind(this),1,"UI");
+		
 		this.Game().audioManager.Pause("MX_GAME");
+		
+		for(var i = this.Game().allAsteroids.length-1; i > -1; i--)
+		{
+			this.Game().allAsteroids[i].markForRemoval();
+			this.Game().allAsteroids[i].y += 1000;
+			this.Game().allAsteroids.splice(i,1);
+		}
 	},
 
 	goToMain: function()

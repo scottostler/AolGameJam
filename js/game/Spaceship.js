@@ -16,6 +16,7 @@ Spaceship = function(game)
 	this.yOffset = 50;
 	this.radius = 50;
 	this.maxPowerCharge = 2.0;
+	this.lost = false;
 }
 
 
@@ -30,11 +31,17 @@ Spaceship.prototype =
         this.PlayAnimation("flying");
 		this.isDragged = false;
 		this.powerCharge = 0;
+		this.lost = false;
 		return this;
     },
 
     subclassUpdate: function(elapsedTime)
     {
+
+		if(this.lost)
+		{
+			return;
+		}
     	this.fireCooldown -= elapsedTime;
 		this.collisionDetection();
 		this.x = this.mGame.mMouseX;
@@ -96,13 +103,23 @@ Spaceship.prototype =
 			{
 				enemy.visible = false;
 				enemy.markForRemoval();
-				this.mGame.lose = true;
+				this.LoadAnimation("death","ship_death",2,7,14,24,false);
+				this.PlayAnimation("death",this.Destroy.bind(this));
+				
+				this.mGame.audioManager.Play({id:"ShipDeath", loop:false});
+				this.lost = true;
 			}
 		}
 	},
 	
+	fadeOutScreen: function()
+	{
+		
+	},
+	
 	Destroy: function()
 	{
+		this.mGame.lose = true;
 		this.markForRemoval();
 	},
 

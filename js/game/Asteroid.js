@@ -13,21 +13,23 @@ Asteroid = function(game)
 
 Asteroid.prototype =
 {
-    Setup: function(xPos,yPos)
+    Setup: function(xPos,yPos,totalTime)
     {
 		var rand = Math.random();
 		this.level = 1;
 		this.myRotation = 120;
 		this.type = "asteroid_small";
-		if(rand > 0.6)
+		if(rand > 0.6 && totalTime >10)
 		{
 			this.myRotation = 40;
+			this.asteroidSpeed = 300;
 			this.type = "asteroid_big";
 			this.level = 2;
 		}
-		if(rand > 0.8 && this.mGame.maxHuge < 2)
+		if(rand > 0.8 && this.mGame.maxHuge < 2 && totalTime > 30)
 		{
 			this.myRotation = 20;
+			this.asteroidSpeed = 200;
 			this.type = "asteroid_giant";
 			this.level = 3;
 			this.mGame.maxHuge++;
@@ -36,6 +38,7 @@ Asteroid.prototype =
 		var y = this.mGame.mScreenManager.YFromPercentage(yPos) - this.radius;
         Spaceship.superclass.Setup.call(this,x,y,this.type, "asteroid");
 		this.radius = this.width/2-10;
+		this.mGame.allAsteroids.push(this);
 		return this;
     },
 

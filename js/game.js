@@ -89,6 +89,7 @@ else
         "http://sdk.tresensa.com/lib/PxLoader.js",
         "http://sdk.tresensa.com/lib/PxLoaderImage.js",
         "js/lib/tge-debug-0.3.4.js",
+        "js/lib/font.js",
     //    "http://sdk.tresensa.com/tge/tge-min.js",
     //    "http://sdk.tresensa.com/lib/playnomics.js",
     //   "http://sdk.tresensa.com/lib/facebook.js",

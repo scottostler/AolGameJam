@@ -19,8 +19,8 @@ MainMenu.prototype =
 		var GameName = 		CreateScreenUI(this,0.5,0.1,"GameName","background");
 		//this.titleText = 	CreateTextUI(this,0.5,0.1,"Main Menu","bold 40px Arial","center","white");
 		var playButton =	CreateButtonUI(this,0.5,0.4,"PlayButton",this.playGame.bind(this),1,"background");
-		var HelpButton =	CreateButtonUI(this,0.5,0.45,"HelpButton",this.doNothing.bind(this),1,"background");
-		var HighScoreButton =	CreateButtonUI(this,0.5,0.5,"HighScoreButton",this.goToHigh.bind(this),1,"background");
+	//	var HelpButton =	CreateButtonUI(this,0.5,0.45,"HelpButton",this.doNothing.bind(this),1,"background");
+		var HighScoreButton =	CreateButtonUI(this,0.5,0.47,"HighScoreButton",this.goToHigh.bind(this),1,"background");
 		//playButton.addChild(CreateTextUI(this,0,0,"Play Game","bold 32px Arial","center","black"));
 		
 		this.Game().audioManager.Play({id:"TitleScreenAmbience", loop:true});
