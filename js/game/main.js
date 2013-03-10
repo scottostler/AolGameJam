@@ -108,24 +108,6 @@ MyGame = function()
         gameAssets = gameAssets.concat(gameSounds);
     }
 
-	for(var iter = 0; iter < 180; iter++)
-	{
-		var newId = "movie_"+iter;
-		var newUrl = "images/LaunchIntro/Spaceship _Layers_1_00";
-		if(iter < 100)
-		{
-			newUrl += "0";
-		}
-		if(iter < 10)
-		{
-			newUrl += "0";
-		}
-		newUrl += iter;
-		newUrl += ".jpg";
-		var array = [];
-		array[0] = {id:newId,url:newUrl};
-		gameAssets = gameAssets.concat(array);
-	}
     this.assetManager.assignImageAssetList("loading", loadingAssets);
     this.assetManager.assignImageAssetList("required", gameAssets);
     this.assetManager.rootLocation = GameConfig.CDN_ROOT;
@@ -189,13 +171,14 @@ MyGame.prototype =
 		
 		this.score = 0;
 		this.lose = false;
+        this.win = false;
         this.score = 0;
 		this.bgManager = new BackgroundManager(this);
 		this.bgManager.Setup();
 		if(this.scoreText == null)
 			this.scoreText = CreateTextUI(this,0.05,0.05,"Score: ","bold 40px Digital-7","left","White");
 		this.spaceShip = this.CreateWorldEntity(Spaceship).Setup(0.5,0.9,"spaceship","spaceship");
-		
+
         this.CreateWorldEntity(TGE.ScreenEntity).Setup(150, this.Height() - 50, "power", "UI");
 
         var meterScale = 0.5;
@@ -220,7 +203,9 @@ MyGame.prototype =
 		if(this.lose)
 		{
 			this.EndGame();
-		}
+		} else if (this.win) {
+            this.EndGame();
+        }
     	this.spawner.update(elapsedTime);
 		this.bgManager.moveObjects(elapsedTime);
 		
@@ -254,6 +239,10 @@ MyGame.prototype =
 
     subclassEndGame: function()
     {
+        if (this.win) {
+            playVideo('video/Spaceship_Landing.mov', 5000, function() {});
+        }
+
         GAMESAPI.postScore(this.score, function() {
             console.log("Posted score of ", this.score)
         }.bind(this), function(r) {

@@ -51,7 +51,7 @@
             };
         };
 
-        if (location.href.match(/localhost/)) {
+        if (location.href.match(/file/)) {
             location.href = '#gameId=121530&accessToken=121530_cg85w9yvtvmhk4r1cnnk_jdnhd4fqtjmnq84w56yrg99wl8';
         }
 
@@ -71,14 +71,15 @@
     <div id="game_canvas" style="position:relative; width:960px; height:536px; text-align: center;"></div>-->
     <!-- portrait game -->
     <div id="game_canvas" style="position:relative; width:640px; height:832px; text-align: center;">
-        <video id="video_player" style="height: 100%; width: 100%; display:none">
-        </video>
+        <video id="video_player" style="height: 100%; width: 100%; display:none" src="" preload="auto">
     </div> 
     <div id="social_leaderboard"></div>
 </div>
 
 <div id="fb-root"></div>
 
+    <video style="display:none" src="video/Spaceship_Landing.mov" preload="auto">
+    <video style="display:none" src="video/Spaceship_Launch.mov" preload="auto">
 </body>
 
 </html>

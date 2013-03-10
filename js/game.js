@@ -128,11 +128,15 @@ function playVideo(src, duration, done) {
     var video = document.getElementById('video_player');
     video.src = src;
     video.style.display = 'block';
-    video.play();
-    setTimeout(function() {
-        video.style.display = 'none';
-        done();
-    }, duration);
+    video.load();
+    video.addEventListener('loadeddata', function() {
+        video.removeEventListener('loadeddata');
+        video.play();
+        setTimeout(function() {
+            video.style.display = 'none';
+            done();
+        }, duration);
+    }, false);
 }
 
 // Game Entry Point
