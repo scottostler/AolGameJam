@@ -11,8 +11,9 @@
     <link rel="shortcut icon" href="favicon.ico">
     <link rel="image_src" href="web-image.jpg">
     <link rel="apple-touch-icon" href="apple-touch-icon.png" />
-
     <link rel="stylesheet" href="style.css" type="text/css" media="screen">
+
+    <script src="http://o.aolcdn.com/gamesdevcenter/sdk/v1/GamesSDK.js" type="text/javascript"></script> 
 
     <!-- Facebook meta-tags -->
     <meta property="og:url" content="">
@@ -35,6 +36,30 @@
     <!-- All game code and libs are loaded using head.js -->
     <script src="js/lib/head.min.js"></script>
     <script src="js/game.js"></script>
+
+    <script>
+        if (!window.console) {
+            window.console = {
+                error: function() {},
+                log: function() {}
+            };
+        }
+
+        function handleError(label) {
+            return function(response) {
+                console.error(label, JSON.stringify(response));
+            };
+        };
+
+        if (location.href.match(/localhost/)) {
+            location.href = '#gameId=121530&accessToken=121530_cg85w9yvtvmhk4r1cnnk_jdnhd4fqtjmnq84w56yrg99wl8';
+        }
+
+        GAMESAPI.setGameSecret('q6h27hxvxljvx7h qnyvhrydyq');
+        GAMESAPI.beginGameSession(function(response) {
+        }, handleError('beginGameSession'));
+    </script>
+
 </head>
 
 <body>
@@ -45,8 +70,10 @@
     <!-- landscape game 
     <div id="game_canvas" style="position:relative; width:960px; height:536px; text-align: center;"></div>-->
     <!-- portrait game -->
-    <div id="game_canvas" style="position:relative; width:640px; height:832px; text-align: center;"></div> 
-
+    <div id="game_canvas" style="position:relative; width:640px; height:832px; text-align: center;">
+        <video id="video_player" style="height: 100%; width: 100%; display:none">
+        </video>
+    </div> 
     <div id="social_leaderboard"></div>
 </div>
 

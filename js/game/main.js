@@ -129,17 +129,15 @@ MyGame = function()
 	this.spaceShip;
 	this.speedMultiplier = 1;
 	this.lose = false;
-	this.maxHuge = 0;
-	
+	this.maxHuge = 0;	
 	this.allAsteroids = [];
-	
+
     window.onblur = this.onBlur.bind(this);
     window.pagehide = this.pageHide.bind(this);
 }
 
 MyGame.prototype =
 {
-
     getAsteroids: function() {
         return this.mGameManager.mObjectsArray.filter(function(o) {
             return o instanceof Asteroid && !o.mMarkedForRemoval;
@@ -186,6 +184,7 @@ MyGame.prototype =
 		
 		this.score = 0;
 		this.lose = false;
+        this.score = 0;
 		this.bgManager = new BackgroundManager(this);
 		this.bgManager.Setup();
 		if(this.scoreText == null)
@@ -198,7 +197,7 @@ MyGame.prototype =
         var meter = this.CreateWorldEntity(TGE.ScreenEntity).Setup( 450, this.Height() - 53, "power_meter", "UI");
         meter.scaleX = meter.scaleY = meterScale;
 
-		var MenuButton =	CreateButtonUI(this,0.8,0.05,"MenuButton",this.onBlur.bind(this),1,"background");
+		var MenuButton = CreateButtonUI(this,0.8,0.05,"MenuButton",this.onBlur.bind(this),1,"background");
 		this.spawner = new Spawner(this);
         this.powerMeterBaseWidth = 340;
         this.powerMeterMask = this.createBox('#222', 280, this.Height() - 64, this.powerMeterBaseWidth, 18, "UI");
@@ -250,6 +249,11 @@ MyGame.prototype =
 
     subclassEndGame: function()
     {
+        GAMESAPI.postScore(this.score, function() {
+            console.log("Posted score of ", this.score)
+        }.bind(this), function(r) {
+            console.error("Error posting score", r)
+        });
     },
 
     onBlur: function()

@@ -123,6 +123,18 @@ if (GameConfig.Leaderboard.ENABLED)
     );
 }
 
+
+function playVideo(src, duration, done) {
+    var video = document.getElementById('video_player');
+    video.src = src;
+    video.style.display = 'block';
+    video.play();
+    setTimeout(function() {
+        video.style.display = 'none';
+        done();
+    }, duration);
+}
+
 // Game Entry Point
 head.ready( function()
     {

@@ -22,10 +22,23 @@ HighScore.prototype =
 		//this.titleText = 	CreateTextUI(this,0.5,0.1,"Main Menu","bold 40px Arial","center","white");
 		var BackButton =	CreateButtonUI(this,0.5,0.88,"BackButton",this.playGame.bind(this),1,"background");
 		//playButton.addChild(CreateTextUI(this,0,0,"Play Game","bold 32px Arial","center","black"));
-		
+
+		GAMESAPI.getLeaders(GAMESAPI.DATA.DAILY, function(response) {
+			var scores = response['data']['scores'];
+			this.displayLeaderboard(scores);
+		}.bind(this), function(response) {
+			console.error(response);
+		});	
+	},
+
+	displayLeaderboard: function(entries) {
+		var topEntries = entries.slice(0, 10);
+		for (var i = 0; i < topEntries.length; i++) {
+			var entry = topEntries[i];
+			console.log(entry.playerInfo.gamerHandle + " got " + entry.score);
+		}
 	},
 	
-
 	playGame: function(func)
 	{
 		this.Close();
