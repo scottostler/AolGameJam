@@ -74,6 +74,7 @@ MyGame = function()
         {id:'three_beam', 				url:'images/gameassets/three_beam.png'},
         {id:'energy_ball',   			url:'images/gameassets/energy_ball.png'},
         {id:'asteroid_giant', 			url:'images/gameassets/asteroid_giant.png'},
+        {id:'MenuButton', 				url:'images/gameassets/MenuButton.png'},
         {id:'MX_GAME',					url:'audio/MX_GAME.ogg', 			assetType:"audio"}
 		
     ];
@@ -120,6 +121,7 @@ MyGame = function()
 	this.spaceShip;
 	this.speedMultiplier = 1;
 	this.lose = false;
+	this.maxHuge = 0;
 	
 	
     window.onblur = this.onBlur.bind(this);
@@ -171,22 +173,24 @@ MyGame.prototype =
 		this.lose = false;
 		this.bgManager = new BackgroundManager(this);
 		this.bgManager.Setup();
-		this.scoreText = CreateTextUI(this,0.5,0.05,"Score: ","bold 40px Arial","center","White");
+		if(this.scoreText == null)
+			this.scoreText = CreateTextUI(this,0.5,0.05,"Score: ","bold 40px Arial","center","White");
 		this.spaceShip = this.CreateWorldEntity(Spaceship).Setup(0.5,0.9,"spaceship","spaceship");
 		
         this.CreateWorldEntity(TGE.ScreenEntity).Setup(
             150, this.Height() - 50, "power", "UI");
 
         var meterScale = 0.5;
-        var meter = this.CreateWorldEntity(TGE.ScreenEntity).Setup(
-            450, this.Height() - 53, "power_meter", "UI");
+        var meter = this.CreateWorldEntity(TGE.ScreenEntity).Setup( 450, this.Height() - 53, "power_meter", "UI");
         meter.scaleX = meter.scaleY = meterScale;
 
+		var MenuButton =	CreateButtonUI(this,0.8,0.05,"MenuButton",this.onBlur.bind(this),1,"background");
 		this.spawner = new Spawner(this);
         this.powerMeterBaseWidth = 340;
         this.powerMeterMask = this.createBox('#222', 280, this.Height() - 64, this.powerMeterBaseWidth, 18, "UI");
 		this.powerMeterMask.alpha = 0.8;
 		this.audioManager.Play({id:"MX_GAME", loop:false});
+		this.maxHuge = 0;
     },
 
     subclassSetupLevel: function(levelNumber)

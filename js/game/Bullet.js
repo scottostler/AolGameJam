@@ -18,6 +18,7 @@ Bullet.prototype =
 		var col = 4;
 		var frames = 4;
 		var framerate = 24;
+		this.level = 1;
 		if(this.percentFull > 0.33)
 		{
 			this.type = "three_beam";
@@ -27,6 +28,7 @@ Bullet.prototype =
 			col = 3;
 			frames = 3;
 			framerate = 24;
+			this.level = 2;
 		}
 		if(this.percentFull > 0.66)
 		{
@@ -37,6 +39,7 @@ Bullet.prototype =
 			col = 4;
 			frames = 4;
 			framerate = 24;
+			this.level = 3;
 		}
 		
         Bullet.superclass.Setup.call(this, spaceship.x, yPos, this.type,"spaceship");
@@ -63,7 +66,7 @@ Bullet.prototype =
 		this.soundDelay -= elapsedTime;
     },
 
-    detectAsteroidCollisions: function() {
+    detectAsteroidCollisions: function() {	
         var eIndex = detectFirstCollision(this, this.mGame.getAsteroids(),this.callBack.bind(this));
 
         if (eIndex >= 0) {
@@ -72,14 +75,28 @@ Bullet.prototype =
     },
 	
 	 callBack: function(bullet, enemy) {
-            if (!bullet.isMega) {
+            if (bullet.level < enemy.level) {
                 bullet.visible = false;
                 bullet.markForRemoval();
             }
-
-            enemy.visible = false;
-            enemy.markForRemoval();
-			this.createAsteroidDeath(enemy.x/this.mGame.Width(),enemy.y/this.mGame.Height(),enemy.type);
+			else if(bullet.level == enemy.level)
+			{
+                bullet.visible = false;
+                bullet.markForRemoval();
+				enemy.visible = false;
+				enemy.markForRemoval();
+				if(enemy.level == 3)
+				{
+					this.mGame.maxHuge--;
+				}
+				this.createAsteroidDeath(enemy.x/this.mGame.Width(),enemy.y/this.mGame.Height(),enemy.type);
+			}
+			else
+			{
+				enemy.visible = false;
+				enemy.markForRemoval();
+				this.createAsteroidDeath(enemy.x/this.mGame.Width(),enemy.y/this.mGame.Height(),enemy.type);
+			}
 			
     },
 	
@@ -93,27 +110,32 @@ Bullet.prototype =
 		var frames = 6;
 		var framerate = 24;
 		var soundName = "Explosion1_01";
-		if(type == "asteroid_big" && false)
+		var scaleMe = 1;
+		if(type == "asteroid_big")
 		{
 			img = "big_ast_death";
-			row = 4;
-			col = 4;
-			frames = 16;
+			row = 3;
+			col = 5;
+			frames = 15;
 			framerate = 24;
 			soundName = "Explosion2_01";
+			var scaleMe = 2;
 		}
-		else if(type == "asteroid_giant" && false)
+		else if(type == "asteroid_giant")
 		{
 			img = "giant_ast_death";
-			row = 4;
-			col = 4;
-			frames = 16;
+			row = 5;
+			col = 5;
+			frames = 25;
 			framerate = 24;
 			soundName = "Explosion2_02";
+			var scaleMe = 10;
 			
 		}
 		anim.LoadAnimation("exploding",img,row,col,frames,framerate,false);
 		anim.PlayAnimation("exploding",this.markForRemoval.bind(anim));
+		anim.scaleX = scaleMe;
+		anim.scaleY = scaleMe;
 		if(this.soundDelay < 0)
 		{
 			this.mGame.audioManager.Play({id:soundName, loop:false});
