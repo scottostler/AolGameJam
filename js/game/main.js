@@ -103,24 +103,6 @@ MyGame = function()
         gameAssets = gameAssets.concat(gameSounds);
     }
 
-	for(var iter = 0; iter < 180; iter++)
-	{
-		var newId = "movie_"+iter;
-		var newUrl = "images/LaunchIntro/Spaceship _Layers_1_00";
-		if(iter < 100)
-		{
-			newUrl += "0";
-		}
-		if(iter < 10)
-		{
-			newUrl += "0";
-		}
-		newUrl += iter;
-		newUrl += ".jpg";
-		var array = [];
-		array[0] = {id:newId,url:newUrl};
-		gameAssets = gameAssets.concat(array);
-	}
     this.assetManager.assignImageAssetList("loading", loadingAssets);
     this.assetManager.assignImageAssetList("required", gameAssets);
     this.assetManager.rootLocation = GameConfig.CDN_ROOT;
