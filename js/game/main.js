@@ -47,7 +47,11 @@ MyGame = function()
 
         {id:'game_background',      	url:'images/screens/mainmenu/game_background.jpg'},
         {id:'MainBackground',  	    	url:'images/screens/mainmenu/MainBackground.png'},
-        {id:'game_background',      	url:'images/screens/mainmenu/game_background.jpg'},
+        {id:'mm_SpaceShip',      		url:'images/screens/mainmenu/mm_SpaceShip.png'},
+        {id:'PlayButton',     		 	url:'images/screens/mainmenu/PlayButton.png'},
+        {id:'HelpButton',     		 	url:'images/screens/mainmenu/HelpButton.png'},
+        {id:'HighScoreButton',     	 	url:'images/screens/mainmenu/HighScoreButton.png'},
+        {id:'GameName',     	 	url:'images/screens/mainmenu/GameName.png'},
 		
         {id:'gameover_background', 		url:'images/screens/gameover/gameover_background.jpg'},
 		
