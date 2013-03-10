@@ -34,7 +34,14 @@ Bullet.prototype =
     },
 
     detectAsteroidCollisions: function() {
-        var eIndex = detectFirstCollision(this, this.mGame.getAsteroids(), function(bullet, enemy) {
+        var eIndex = detectFirstCollision(this, this.mGame.getAsteroids(),this.callBack.bind(this));
+
+        if (eIndex >= 0) {
+            this.mGame.score += 100;
+        }
+    },
+	
+	 callBack: function(bullet, enemy) {
             if (!bullet.isMega) {
                 bullet.visible = false;
                 bullet.markForRemoval();
@@ -42,12 +49,16 @@ Bullet.prototype =
 
             enemy.visible = false;
             enemy.markForRemoval();
-        });
-
-        if (eIndex >= 0) {
-            this.mGame.score += 100;
-        }
-    }
+			this.createAsteroidDeath(enemy.x/this.mGame.Width(),enemy.y/this.mGame.Height());
+			
+    },
+	
+	createAsteroidDeath: function (xPos,yPos)
+	{
+		var anim = CreateScreenUI(this.mGame,xPos,yPos,"ast_death","asteroid");
+		anim.LoadAnimation("exploding","ast_death",5,5,8,24,false);
+		anim.PlayAnimation("exploding",this.markForRemoval.bind(anim));
+	},
 }
 
 extend(Bullet,TGE.ScreenEntity);

@@ -46,6 +46,8 @@ MyGame = function()
         {id:'power_meter', url:'images/power_meter_full.png'},
 
         {id:'game_background',      	url:'images/screens/mainmenu/game_background.jpg'},
+        {id:'MainBackground',  	    	url:'images/screens/mainmenu/MainBackground.png'},
+        {id:'game_background',      	url:'images/screens/mainmenu/game_background.jpg'},
 		
         {id:'gameover_background', 		url:'images/screens/gameover/gameover_background.jpg'},
 		
@@ -53,6 +55,7 @@ MyGame = function()
         {id:'spaceship',   				url:'images/gameassets/spaceship.png'},
         {id:'static_back',   			url:'images/gameassets/static_back.png'},
         {id:'scroll',   				url:'images/gameassets/scroll.png'},
+        {id:'ast_death',   				url:'images/gameassets/ast_death.png'},
         {id:'asteroid_small', 			url: 'images/gameassets/asteroid_small.png'}
     ];
 
@@ -192,6 +195,7 @@ MyGame.prototype =
     {
     },
 
+	
 	itemClicked: function()
 	{
 		this.gameResult = "win";

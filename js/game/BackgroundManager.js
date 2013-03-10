@@ -9,7 +9,7 @@ BackgroundManager.prototype =
 {
     Setup: function(xPos,yPos)
     {
-		var static_back = CreateScreenUI(this.mGame,0.5,0.5,"static_back","background");
+		var static_back = CreateScreenUI(this.mGame,0.5,0.5,"MainBackground","background");
 		var background = CreateScreenUI(this.mGame,0.5,0.5,"scroll","background");
 		var secondBg = CreateScreenUI(this.mGame,0.5,0.5,"scroll","background");
 		this.backgroundElements.push(background);
