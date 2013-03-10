@@ -99,7 +99,7 @@ MyGame.prototype =
         });
     },
 
-    createBox: function(backgroundColor, width, height, xVal, yVal, layerVal) {
+    createBox: function(backgroundColor, xVal, yVal, width, height, layerVal) {
         var temp = new TGE.DisplayObjectContainer();
         temp.registrationX = temp.registrationY = 0;
         temp.backgroundColor = backgroundColor;
@@ -141,18 +141,8 @@ MyGame.prototype =
 
 		this.spawner = new Spawner(this);
 
-        var boxX = 280;
-        var boxW = 220 * meterScale;
-        this.boxWidth = boxW;
-        var boxM = 2;
-        var boxH = 55;
-        var boxY = this.Height() - 70;
-        this.baseBox1 = boxX;
-        this.baseBox2 = boxX + boxW + boxM;
-        this.baseBox3 =  boxX + (boxW + boxM) * 2;
-        this.box1 = this.createBox('#000', boxW, boxH * meterScale, this.baseBox1, boxY, "UI");
-        this.box2 = this.createBox('#000', boxW, boxH * meterScale, this.baseBox2, boxY, "UI");
-        this.box3 = this.createBox('#000', boxW, boxH * meterScale, this.baseBox3, boxY, "UI");
+        this.powerMeterBaseWidth = 340;
+        this.powerMeterMask = this.createBox('#222', 280, this.Height() - 64, this.powerMeterBaseWidth, 18, "UI");
     },
 
     subclassSetupLevel: function(levelNumber)
@@ -184,15 +174,8 @@ MyGame.prototype =
     },
 
     drawPowerMeter: function(f) {
-        var b1F = Math.max((1.0 / 3) - f, 0);
-        var b2F = Math.max((2.0 / 3) - f, 0);
-        var b3F = Math.max(1 - f, 0);
-        this.box1.width = b1F * this.boxWidth * 3;
-        this.box1.x = this.baseBox1 + (this.boxWidth - this.box1.width);
-        this.box2.width = b2F * this.boxWidth * 3;
-        this.box2.x = this.baseBox2 + (this.boxWidth - this.box2.width);
-        this.box3.width = b3F * this.boxWidth * 3;
-        this.box3.x = this.baseBox3 + (this.boxWidth - this.box3.width);
+        this.powerMeterMask.width = this.powerMeterBaseWidth * (1-f);
+        this.powerMeterMask.x = 280 + this.powerMeterBaseWidth - this.powerMeterMask.width;
     },
 
     subclassMouseDown: function()
