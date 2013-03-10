@@ -22,6 +22,11 @@ Asteroid.prototype =
     subclassUpdate: function(elapsedTime)
     {
     	this.y += this.asteroidSpeed * elapsedTime * this.mGame.speedMultiplier;
+
+        if (this.y - this.radius> this.mGame.Height()) {
+            this.markForRemoval();
+        }
+
     },
 }
 extend(Asteroid,TGE.ScreenEntity);

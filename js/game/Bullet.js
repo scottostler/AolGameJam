@@ -12,25 +12,33 @@ Bullet.prototype =
         var yPos = spaceship.y - spaceship.height / 2;
         Bullet.superclass.Setup.call(this, spaceship.x, yPos, "selection","spaceship");
 
-        var scale = spaceship.epoch > 2 ? 1 : 0.5;
+        this.isMega = spaceship.epoch >= 1;
+        var scale = this.isMega ? 1 : 0.5;
         this.scaleX = scale;
         this.scaleY = scale;
         this.offsetX = 0;
         this.offsetY = 0;
         this.radius = 80 * scale;
+        this.speed = this.isMega ? 200 : 400;
         return this;
     },
 
     subclassUpdate: function(elapsedTime)
     {
-    	this.y -= 200 * elapsedTime;
+    	this.y -= this.speed * elapsedTime * this.mGame.speedMultiplier;
         this.detectAsteroidCollisions();
+
+        if (this.y + this.radius < 0) {
+            this.markForRemoval();
+        }
     },
 
     detectAsteroidCollisions: function() {
         var eIndex = detectFirstCollision(this, this.mGame.enemies, function(bullet, enemy) {
-            bullet.visible = false;
-            bullet.markForRemoval();
+            if (!bullet.isMega) {
+                bullet.visible = false;
+                bullet.markForRemoval();
+            }
 
             enemy.visible = false;
             enemy.markForRemoval();
