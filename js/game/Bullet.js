@@ -56,7 +56,7 @@ Bullet.prototype =
 	createAsteroidDeath: function (xPos,yPos)
 	{
 		var anim = CreateScreenUI(this.mGame,xPos,yPos,"ast_death","asteroid");
-		anim.LoadAnimation("exploding","ast_death",5,5,8,24,false);
+		anim.LoadAnimation("exploding","ast_death",1,6,6,24,false);
 		anim.PlayAnimation("exploding",this.markForRemoval.bind(anim));
 	},
 }

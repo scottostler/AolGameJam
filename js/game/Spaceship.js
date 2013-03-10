@@ -11,6 +11,7 @@ Spaceship = function(game)
 	this.isDragged = false;
 	this.highestBarrier = 0.7;
 	this.fireCooldown = 0;
+	this.maxFireCooldown = 0.2;
 	this.xOffset = 0;
 	this.yOffset = 50;
 	this.radius = 50;
@@ -79,7 +80,7 @@ Spaceship.prototype =
 			return null;
 		}
 
-		this.fireCooldown = 0.3;
+		this.fireCooldown = this.maxFireCooldown;
 		this.mGame.CreateWorldEntity(Bullet).Setup(this);
 	},
 	

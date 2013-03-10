@@ -36,6 +36,8 @@ MyGame = function()
 
     var loadingAssets = [
         {id:'splash',  		 			url:'images/screens/loading/background.jpg'},
+        {id:'FuelingShip',  		 	url:'images/screens/loading/FuelingShip.png'},
+
     ];
 
     // Define the image assets we need for the game
@@ -64,7 +66,9 @@ MyGame = function()
         {id:'static_back',   			url:'images/gameassets/static_back.png'},
         {id:'scroll',   				url:'images/gameassets/scroll.png'},
         {id:'ast_death',   				url:'images/gameassets/ast_death.png'},
-        {id:'asteroid_small', 			url: 'images/gameassets/asteroid_small.png'}
+        {id:'asteroid_small', 			url:'images/gameassets/asteroid_small.png'},
+        {id:'asteroid_big', 			url:'images/gameassets/asteroid_big.png'},
+        {id:'asteroid_giant', 			url:'images/gameassets/asteroid_giant.png'}
     ];
 
     var gameSounds = [
@@ -75,6 +79,24 @@ MyGame = function()
         gameAssets = gameAssets.concat(gameSounds);
     }
 
+	for(var iter = 0; iter < 180; iter++)
+	{
+		var newId = "movie_"+iter;
+		var newUrl = "images/LaunchIntro/Spaceship _Layers_00";
+		if(iter < 100)
+		{
+			newUrl += "0";
+		}
+		if(iter < 10)
+		{
+			newUrl += "0";
+		}
+		newUrl += iter;
+		newUrl += ".jpg";
+		var array = [];
+		array[0] = {id:newId,url:newUrl};
+		gameAssets = gameAssets.concat(array);
+	}
     this.assetManager.assignImageAssetList("loading", loadingAssets);
     this.assetManager.assignImageAssetList("required", gameAssets);
     this.assetManager.rootLocation = GameConfig.CDN_ROOT;

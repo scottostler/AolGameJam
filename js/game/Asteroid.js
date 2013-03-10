@@ -13,9 +13,20 @@ Asteroid.prototype =
 {
     Setup: function(xPos,yPos)
     {
+		var rand = Math.random();
+		this.type = "asteroid_small";
+		if(rand > 0.6)
+		{
+			this.type = "asteroid_big";
+		}
+		if(rand > 0.8)
+		{
+			this.type = "asteroid_giant";
+		}
 		var x = this.mGame.mScreenManager.XFromPercentage(xPos);
 		var y = this.mGame.mScreenManager.YFromPercentage(yPos) - this.radius;
-        Spaceship.superclass.Setup.call(this,x,y,"asteroid_small", "asteroid");
+        Spaceship.superclass.Setup.call(this,x,y,this.type, "asteroid");
+		this.radius = this.width/2-10;
 		return this;
     },
 
