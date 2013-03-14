@@ -285,7 +285,7 @@ function CreateTextUI(screen,xPos,yPos,text,properties,xAlign,color)
 {
 	return screen.CreateUIEntity(TGE.Text).Setup(screen.mScreenManager.XFromPercentage(xPos), 
 												screen.mScreenManager.YFromPercentage(yPos), 
-												text , properties, xAlign, "middle", color, "UI");
+												text, properties, xAlign, "middle", color, "UI");
 }
 
 function CreateScreenUI(screen,xPos,yPos,name,layer)

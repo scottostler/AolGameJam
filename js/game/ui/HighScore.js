@@ -4,47 +4,52 @@ HighScore.prototype.constructor = HighScore;
 function HighScore(screenManager)
 {
     TGE.Screen.call(this,screenManager);
-	var titleText;
+    var titleText;
     return this;
 }
 
 HighScore.prototype =
 {
-	Setup: function()
-	{
-		this.Game().mainMenuInstance = this;
-		
-		var background = 	CreateScreenUI(this,0.5,0.5,"MainBackground","background");
-		var HighScoresTitle = 		CreateScreenUI(this,0.5,0.1,"HighScores","background");
-		HighScoresTitle.scaleX = 0.5;
-		HighScoresTitle.scaleY = 0.5;
-		var NumbersImage = 		CreateScreenUI(this,0.2,0.5,"Numbers","background");
-		//this.titleText = 	CreateTextUI(this,0.5,0.1,"Main Menu","bold 40px Arial","center","white");
-		var BackButton =	CreateButtonUI(this,0.5,0.88,"BackButton",this.playGame.bind(this),1,"background");
-		//playButton.addChild(CreateTextUI(this,0,0,"Play Game","bold 32px Arial","center","black"));
+    Setup: function()
+    {
+        this.Game().mainMenuInstance = this;
+        
+        var background =    CreateScreenUI(this,0.5,0.5,"MainBackground","background");
+        var HighScoresTitle =       CreateScreenUI(this,0.5,0.1,"HighScores","background");
+        HighScoresTitle.scaleX = 0.5;
+        HighScoresTitle.scaleY = 0.5;
+        var BackButton =    CreateButtonUI(this,0.5,0.88,"BackButton",this.playGame.bind(this),1,"background");
+        this.textLines = [];
 
-		GAMESAPI.getLeaders(GAMESAPI.DATA.ALLTIME, function(response) {
-			var scores = response['data']['scores'];
-			this.displayLeaderboard(scores);
-		}.bind(this), function(response) {
-			console.error(response);
-		});	
-	},
+        GAMESAPI.getLeaders(GAMESAPI.DATA.ALLTIME, function(response) {
+            var scores = response['data']['scores'];
+            this.displayLeaderboard(scores);
+        }.bind(this), function(response) {
+            console.error(response);
+        }); 
+    },
 
-	displayLeaderboard: function(entries) {
-		var topEntries = entries.slice(0, 10);
-		for (var i = 0; i < topEntries.length; i++) {
-			var entry = topEntries[i];
-			console.log(entry.playerInfo.gamerHandle + " got " + entry.score);
-		}
-	},
-	
-	playGame: function(func)
-	{
-		this.Close();
-		this.Game().GotoMainMenu();
-	},
-	
+    displayLeaderboard: function(entries) {
+        var topEntries = entries.slice(0, 10);
+        for (var i = 0; i < topEntries.length; i++) {
+            var entry = topEntries[i];
+            var text = entry.playerInfo.gamerHandle + "      " + entry.score;
+            var textUI = CreateTextUI(this, 0.15, 0.20 + 0.10 * i, text, "bold 40px Digital-7", "left", "#E85552");
+            this.textLines.push(textUI);
+        }
+    },
+    
+    playGame: function(func)
+    {
+        this.textLines.forEach(function(t) {
+            t.visible = false;
+            t.markForRemoval();
+        });
+        this.textLines = [];
+        this.Close();
+        this.Game().GotoMainMenu();
+    },
+    
 };
 
 
