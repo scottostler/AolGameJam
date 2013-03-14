@@ -51,8 +51,10 @@
             };
         };
 
-        if (location.href.match(/file/) || location.href.match(/dev\.asteroidhater\.com/)) {
+        if ((location.href.match(/file/) || location.href.match(/dev\.asteroidhater\.com/))
+            && !location.href.match('accessToken=')) {
             location.href = '#gameId=121540&accessToken=121540_cg85w9yvtvmhk4r1cnnk_j3zqsf0ftctfbdp5ztjvpm655t';
+            location.reload();
         }
 
         GAMESAPI.setGameSecret('kvk6vlbtps79zyb2cp9y3wffds');
