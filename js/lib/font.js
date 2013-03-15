@@ -798,7 +798,3 @@
   window.Font = Font;
 
 }(window));
-
-var Digital_7 = new Font();
-Digital_7.fontFamily = "Digital-7";
-Digital_7.src = "font/digital-7.ttf";

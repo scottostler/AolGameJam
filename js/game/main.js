@@ -106,6 +106,10 @@ MyGame = function()
 		{id:'TitleScreenAmbience',		url:'audio/TitleScreenAmbience.ogg', 	assetType:"audio"},
     ];
 
+    var Digital_7 = new Font();
+    Digital_7.fontFamily = "Digital-7";
+    Digital_7.src = "font/digital-7.ttf";
+
     if(!this.oniOS())
     {
         gameAssets = gameAssets.concat(gameSounds);
