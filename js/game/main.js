@@ -64,6 +64,7 @@ MyGame = function()
         {id:'MainMenuButton', 			url:'images/screens/gameover/MainMenuButton.png'},
         {id:'Score', 					url:'images/screens/gameover/Score.png'},
         {id:'ReplayButton', 			url:'images/screens/gameover/ReplayButton.png'},
+        {id:'TweetButton', 			    url:'images/screens/gameover/TweetButton.png'},
 		
         {id:'PauseButton',   			url:'images/gameassets/PauseButton.png'},
         {id:'MainMenuButton',   		url:'images/gameassets/MainMenuButton.png'},
@@ -84,7 +85,8 @@ MyGame = function()
         {id:'asteroid_giant', 			url:'images/gameassets/asteroid_giant.png'},
         {id:'MenuButton', 				url:'images/gameassets/MenuButton.png'},
         {id:'ship_death', 				url:'images/gameassets/ship_death.png'},
-		
+
+
         {id:'MX_GAME',					url:'audio/MX_GAME.ogg', 			assetType:"audio"}
 		
     ];

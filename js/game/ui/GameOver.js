@@ -25,12 +25,17 @@ GameOver.prototype =
 		resultText.scaleY = 0.9;
 		var other = 	CreateScreenUI(this,0.5,0.32,"Score","UI");
 		if(this.scoreText == null)
-			this.scoreText = CreateTextUI(this,0.8,0.315,""+this.Game().score,"bold 64px Arial","center","red");
+			this.scoreText = CreateTextUI(this,0.5,0.4,""+this.Game().score,"bold 64px Arial","center","white");
+
+        // Create Button to tweet high score
+        var tweetHighScore = CreateButtonUI(this,0.43,0.92,"TweetButton",this.tweetHighScore.bind(this),1,"UI");
+        var tweetText = CreateTextUI(this,0.56,0.92,""+ "Tweet This!","bold 18px Arial","center","white");
+
 		//Create Button to replay game
-		var replayGame =		CreateButtonUI(this,0.5,0.55,"ReplayButton",this.replayGame.bind(this),1,"UI");
+		var replayGame =		CreateButtonUI(this,0.5,0.6,"ReplayButton",this.replayGame.bind(this),1,"UI");
 		
-		var quitGame =		CreateButtonUI(this,0.5,0.65,"MainMenuButton",this.goToMain.bind(this),1,"UI");
-		
+		var quitGame =		CreateButtonUI(this,0.5,0.7,"MainMenuButton",this.goToMain.bind(this),1,"UI");
+
 		this.Game().audioManager.Pause("MX_GAME");
 		
 		for(var i = this.Game().allAsteroids.length-1; i > -1; i--)
@@ -54,6 +59,23 @@ GameOver.prototype =
 		this.Close();
 		this.Game().PlayGame();
 	},
+
+    tweetHighScore: function()
+    {
+        console.log("Tweeting High Score");
+
+        var encodedText = encodeURI("Woot! Just scored " + this.Game().score + " points. Beat me, I dare you! ");
+        var encodedURL = encodeURI("http://asteroidhater.com");
+        var encodedRelated = encodeURI("Built on TreSensa");
+        var encodedHash = encodeURI("asteroidhater");
+
+        var finalURL = "http://twitter.com/intent/tweet?hashtags=" +  encodedHash +
+            "&related=" + encodedRelated +
+            "&url=" + encodedURL +
+            "&text=" + encodedText;
+        this.Game().OpenURL(finalURL);
+
+    }
 };
 extend(GameOver,TGE.Screen);
 
