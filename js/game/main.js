@@ -281,15 +281,7 @@ MyGame.prototype =
             this.PauseGame(true);
             this.audioManager.Mute();
         }
-    },
-	
-	
-	itemClicked: function()
-	{
-		this.gameResult = "win";
-		this.moveMe = true;
-		this.score += 10;
-	}
+    }
 
 }
 extend(MyGame,TGE.Game);
