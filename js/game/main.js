@@ -219,10 +219,7 @@ MyGame.prototype =
         }
     	this.spawner.update(elapsedTime);
 		this.bgManager.moveObjects(elapsedTime);
-		
-		//Update Score
 		this.scoreText.text = "Score: " + this.score;
-
 		this.checkMouseState(elapsedTime);
     },
 
@@ -250,8 +247,6 @@ MyGame.prototype =
 
     subclassEndGame: function()
     {
-        this.audioManager.Mute();
-
         if (this.win) {
             playVideo('video/Spaceship_Landing.mov', 5000);
         }
