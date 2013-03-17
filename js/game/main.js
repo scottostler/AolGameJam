@@ -215,11 +215,9 @@ MyGame.prototype =
 
     subclassUpdateGame: function(elapsedTime)
     {
-		if(this.lose)
-		{
-			this.EndGame();
-		} else if (this.win) {
+		if(this.lose || this.win) {
             this.EndGame();
+            return;            
         }
     	this.spawner.update(elapsedTime);
 		this.bgManager.moveObjects(elapsedTime);
