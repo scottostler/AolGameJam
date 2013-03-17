@@ -134,7 +134,9 @@ function playVideo(src, duration, done) {
         video.play();
         setTimeout(function() {
             video.style.display = 'none';
-            done();
+            if (done) {
+                done();
+            }
         }, duration);
     }, false);
 }

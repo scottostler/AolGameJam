@@ -252,8 +252,10 @@ MyGame.prototype =
 
     subclassEndGame: function()
     {
+        this.audioManager.Mute();
+
         if (this.win) {
-            playVideo('video/Spaceship_Landing.mov', 5000, function() {});
+            playVideo('video/Spaceship_Landing.mov', 5000);
         }
 
         GAMESAPI.postScore(this.score, function() {
