@@ -32,6 +32,7 @@ Spaceship.prototype =
 		this.isDragged = false;
 		this.powerCharge = 0;
 		this.lost = false;
+        this.shield = this.mGame.CreateWorldEntity(Shield).Setup(this);
 		return this;
     },
 
@@ -43,7 +44,7 @@ Spaceship.prototype =
 			return;
 		}
     	this.fireCooldown -= elapsedTime;
-		this.collisionDetection();
+		//this.collisionDetection();
 		this.x = this.mGame.mMouseX;
 		if(this.mGame.mMouseY < this.mGame.mScreenManager.XFromPercentage(this.highestBarrier)+this.yOffset)
 		{
@@ -53,6 +54,9 @@ Spaceship.prototype =
 		{
 			this.y = this.mGame.mMouseY+this.yOffset;
 		}
+
+        this.shield.syncPosition(this.x, this.y);
+        this.collisionDetection();
     },
 	
 	mouseClickedMe: function()
@@ -120,6 +124,7 @@ Spaceship.prototype =
 	Destroy: function()
 	{
 		this.mGame.lose = true;
+        this.shield.markForRemoval();
 		this.markForRemoval();
 	},
 
