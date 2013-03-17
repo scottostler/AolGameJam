@@ -22,8 +22,6 @@ HelpScreen.prototype =
 		this.iter = 0;
 		this.timePassed = 0;
 		this.currentBg = CreateScreenUI(this,0.5,0.5,"MainBackground","background");
-		this.Game().audioManager.Play({id:"INTRO_SFX", loop:false});
-		
 	},
 	
 	Update: function(elapsedTime)
