@@ -27,6 +27,16 @@ function detectFirstCollision(a, bs, callback) {
     return -1;
 }
 
+function loadFont(fontFamily, src) {
+    try {
+        var font = new Font();
+        font.fontFamily = fontFamily;
+        font.src = src;
+    } catch (e) { 
+        console.error('Error loading ' + fontFamily, e);
+    }
+}
+
 MyGame = function()
 {
     window.game = this;
@@ -106,9 +116,7 @@ MyGame = function()
 		{id:'TitleScreenAmbience',		url:'audio/TitleScreenAmbience.ogg', 	assetType:"audio"},
     ];
 
-    var Digital_7 = new Font();
-    Digital_7.fontFamily = "Digital-7";
-    Digital_7.src = "font/digital-7.ttf";
+    loadFont("Digital-7", "font/digital-7.ttf");
 
     if(!this.oniOS())
     {
