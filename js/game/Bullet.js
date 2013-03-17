@@ -50,8 +50,6 @@ Bullet.prototype =
         this.offsetX = 0;
         this.offsetY = 0;
         this.radius = this.width/2;
-        this.soundDelay = 0.255;
-        this.maxSoundDelay = 0.255;
         return this;
     },
 
@@ -63,7 +61,6 @@ Bullet.prototype =
         if (this.y + this.radius < 0) {
             this.markForRemoval();
         }
-        this.soundDelay -= elapsedTime;
     },
     
     collisionCallback: function(bullet, enemy) {
@@ -131,12 +128,8 @@ Bullet.prototype =
         anim.PlayAnimation("exploding",this.markForRemoval.bind(anim));
         anim.scaleX = scaleMe;
         anim.scaleY = scaleMe;
-        if(this.soundDelay < 0)
-        {
-            this.mGame.audioManager.Play({id:soundName, loop:false});
-            this.soundDelay = this.maxSoundDelay;
-        }
-    },
+        this.mGame.audioManager.Play({id:soundName, loop:false});
+    }
 };
 
 extend(Bullet,TGE.ScreenEntity);
