@@ -178,11 +178,11 @@ MyGame.prototype =
 
     subclassStartPlaying: function()
     {
-		for(var i = this.allAsteroids.length-1; i > -1; i++)
-		{
-			this.allAsteroids[i].markForRemoval();
-			this.allAsteroids.splice(i,1);
-		}
+        this.allAsteroids.forEach(function(a) {
+            a.markForRemoval();
+        });
+
+        this.allAsteroids = [];
 		
 		this.score = 0;
 		this.lose = false;
