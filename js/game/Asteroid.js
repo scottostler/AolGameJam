@@ -40,7 +40,7 @@ Asteroid.prototype =
 		}
 		var x = this.mGame.mScreenManager.XFromPercentage(xPos);
 		var y = this.mGame.mScreenManager.YFromPercentage(yPos) - this.radius;
-        Spaceship.superclass.Setup.call(this,x,y,this.type, "asteroid");
+        Asteroid.superclass.Setup.call(this,x,y,this.type, "asteroid");
 		this.radius = this.width/2-10;
 		this.mGame.allAsteroids.push(this);
 		return this;
