@@ -32,7 +32,7 @@ MainMenu.prototype =
 		this.Game().audioManager.Pause("TitleScreenAmbience");
 
 		this.Game().audioManager.Play({id:"UI_Click", loop:false});
-		playVideo('video/Spaceship_Launch.mov', 6500, function() {
+		playVideo('video/Spaceship_Launch.mov', function() {
 			this.Close();
 			this.Game().PlayGame();
 		}.bind(this));

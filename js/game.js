@@ -124,21 +124,21 @@ if (GameConfig.Leaderboard.ENABLED)
 }
 
 
-function playVideo(src, duration, done) {
+function playVideo(src, done) {
     var video = document.getElementById('video_player');
     video.src = src;
     video.style.display = 'block';
-    video.load();
-    video.addEventListener('loadeddata', function() {
-        video.removeEventListener('loadeddata');
-        video.play();
-        setTimeout(function() {
-            video.style.display = 'none';
-            if (done) {
-                done();
-            }
-        }, duration);
-    }, false);
+
+    var cleanup = function() {
+        video.style.display = 'none';
+        video.removeEventListener('ended', cleanup, false);
+        video.removeEventListener('error', cleanup, false);
+        if (done) { done(); }
+    }
+
+    video.addEventListener('ended', cleanup, false);
+    video.addEventListener('error', cleanup, false);
+    video.play();
 }
 
 // Game Entry Point

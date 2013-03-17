@@ -248,7 +248,7 @@ MyGame.prototype =
     subclassEndGame: function()
     {
         if (this.win) {
-            playVideo('video/Spaceship_Landing.mov', 5000);
+            playVideo('video/Spaceship_Landing.mov');
         }
 
         GAMESAPI.postScore(this.score, function() {
