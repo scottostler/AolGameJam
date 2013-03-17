@@ -71,6 +71,8 @@ MyGame = function()
         {id:'ContinueButton',   		url:'images/gameassets/ContinueButton.png'},
         {id:'selection',   				url:'images/gameassets/selection.png'},
         {id:'spaceship',   				url:'images/gameassets/spaceship.png'},
+        {id:'shield',   				url:'images/gameassets/shield.png'},
+
         {id:'static_back',   			url:'images/gameassets/static_back.png'},
         {id:'scroll',   				url:'images/gameassets/scroll.png'},
         {id:'ast_death',   				url:'images/gameassets/ast_death.png'},
