@@ -15,7 +15,8 @@ GameOver.prototype =
 	{
 		if(this.Game().win)
 		{
-			this.gotoMain();
+			this.goToMain();
+			return;
 		}
 		var background = 	CreateScreenUI(this,0.5,0.5,"MainBackground","UI");
 		this.Game().gameOverInstance = this;
