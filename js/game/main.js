@@ -96,9 +96,7 @@ MyGame = function()
         {id:'MenuButton', 				url:'images/gameassets/MenuButton.png'},
         {id:'ship_death', 				url:'images/gameassets/ship_death.png'},
 
-
         {id:'MX_GAME',					url:'audio/MX_GAME.ogg', 			assetType:"audio"}
-		
     ];
 
     var gameSounds = [
@@ -204,8 +202,9 @@ MyGame.prototype =
         this.powerMeterBaseWidth = 340;
         this.powerMeterMask = this.createBox('#222', 280, this.Height() - 64, this.powerMeterBaseWidth, 18, "UI");
 		this.powerMeterMask.alpha = 0.8;
-		this.audioManager.Play({id:"MX_GAME", loop:false});
+		this.audioManager.Play({id:"MX_GAME", loop:true});
 		this.maxHuge = 0;
+
     },
 
     subclassSetupLevel: function(levelNumber)
