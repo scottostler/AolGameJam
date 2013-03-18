@@ -80,8 +80,15 @@
 
 <div id="fb-root"></div>
 
-    <video style="display:none" src="video/Spaceship_Landing.mov" preload="auto">
-    <video style="display:none" src="video/Spaceship_Launch.mov" preload="auto">
+    <video id="landing_movie" style="display:none" preload="auto">
+        <source src="video/Spaceship_Landing.ogv"/>
+        <source src="video/Spaceship_Landing.mov"/>
+    </video>
+    <video id="launch_movie" style="display:none" preload="auto">
+        <source src="video/Spaceship_Launch.ogv"/>
+        <source src="video/Spaceship_Launch.mov"/>
+    </video>
+
 </body>
 
 </html>

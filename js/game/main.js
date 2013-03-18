@@ -248,7 +248,10 @@ MyGame.prototype =
     subclassEndGame: function()
     {
         if (this.win) {
-            playVideo('video/Spaceship_Landing.mov');
+            if (supports_h264_baseline_video())
+                playVideo('video/Spaceship_Landing.mov');
+            else if (supports_ogg_theora_video())
+                playVideo('video/Spaceship_Landing.ogv');
         }
 
         GAMESAPI.postScore(this.score, function() {

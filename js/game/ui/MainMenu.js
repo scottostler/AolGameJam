@@ -32,11 +32,18 @@ MainMenu.prototype =
 		this.Game().audioManager.Pause("TitleScreenAmbience");
 
 		this.Game().audioManager.Play({id:"UI_Click", loop:false});
-		playVideo('video/Spaceship_Launch.mov', function() {
-			this.Close();
-			this.Game().PlayGame();
-		}.bind(this));
-		
+        if (supports_h264_baseline_video())  {
+            playVideo('video/Spaceship_Launch.mov', function() {
+                this.Close();
+                this.Game().PlayGame();
+            }.bind(this));
+        }
+        else if (supports_ogg_theora_video())  {
+            playVideo('video/Spaceship_Launch.ogv', function() {
+                this.Close();
+                this.Game().PlayGame();
+            }.bind(this));
+        }
 	},
 	goToHigh: function()
 	{
