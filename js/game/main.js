@@ -96,10 +96,10 @@ MyGame = function()
         {id:'MenuButton', 				url:'images/gameassets/MenuButton.png'},
         {id:'ship_death', 				url:'images/gameassets/ship_death.png'},
 
-        {id:'MX_GAME',					url:'audio/MX_GAME.ogg', 			assetType:"audio"}
     ];
 
     var gameSounds = [
+        {id:'MX_GAME',                  url:'audio/MX_GAME.ogg',                assetType:"audio"},
         {id:'Laser1',					url:'audio/Laser1.ogg', 				assetType:"audio"},
 		{id:'Laser2',					url:'audio/Laser2.ogg', 				assetType:"audio"},
 		{id:'Laser3',					url:'audio/Laser3.ogg', 				assetType:"audio"},
