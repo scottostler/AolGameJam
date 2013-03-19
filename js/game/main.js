@@ -37,6 +37,15 @@ function loadFont(fontFamily, src) {
     }
 }
 
+function canPlay(audioType) {
+    try {
+        var a = document.createElement('audio');
+        return a.canPlay(audioType);
+    } catch (e) {
+        return false;
+    }
+}
+
 MyGame = function()
 {
     window.game = this;
@@ -112,6 +121,14 @@ MyGame = function()
 		
 		{id:'TitleScreenAmbience',		url:'audio/TitleScreenAmbience.ogg', 	assetType:"audio"}
     ];
+
+
+    if (!canPlay('audio/ogg')) {
+        for (var i in gameSounds) {
+            var sound = gameSounds[i];
+            sound.url = sound.url.replace(/\.ogg$/, '.m4a');
+        }        
+    }
 
     loadFont("Digital-7", "font/digital-7.ttf");
 
