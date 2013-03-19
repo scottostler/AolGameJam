@@ -164,6 +164,7 @@ function playVideo(src, done) {
         video.style.display = 'none';
         video.removeEventListener('ended', cleanup, false);
         video.removeEventListener('error', cleanup, false);
+        if (video.webkitExitFullScreen) { video.webkitExitFullScreen(); }
         if (done) { done(); }
     }
 
