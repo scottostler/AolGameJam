@@ -37,15 +37,6 @@ function loadFont(fontFamily, src) {
     }
 }
 
-function canPlay(audioType) {
-    try {
-        var a = document.createElement('audio');
-        return a.canPlay(audioType);
-    } catch (e) {
-        return false;
-    }
-}
-
 MyGame = function()
 {
     window.game = this;
@@ -108,27 +99,18 @@ MyGame = function()
     ];
 
     var gameSounds = [
-        {id:'MX_GAME',                  url:'audio/MX_GAME.ogg',                assetType:"audio"},
-        {id:'Laser1',					url:'audio/Laser1.ogg', 				assetType:"audio"},
-		{id:'Laser2',					url:'audio/Laser2.ogg', 				assetType:"audio"},
-		{id:'Laser3',					url:'audio/Laser3.ogg', 				assetType:"audio"},
-        {id:'Explosion1_01',			url:'audio/Explosion1_01.ogg', 			assetType:"audio"},
-		{id:'Explosion2_01',			url:'audio/Explosion2_01.ogg', 			assetType:"audio"},
-		{id:'Explosion2_02',			url:'audio/Explosion2_02.ogg', 			assetType:"audio"},
-		{id:'Explosion3_01',			url:'audio/Explosion3_01.ogg', 			assetType:"audio"},
-		{id:'UI_Click',					url:'audio/UI_Click.ogg', 				assetType:"audio"},
-		{id:'ShipDeath',				url:'audio/ShipDeath.ogg', 				assetType:"audio"},
-		
-		{id:'TitleScreenAmbience',		url:'audio/TitleScreenAmbience.ogg', 	assetType:"audio"}
+        {id:'MX_GAME', url:'audio/MX_GAME.ogg', backup_url:'audio/MX_GAME.m4a', assetType:"audio"},
+        {id:'Laser1', url:'audio/Laser1.ogg', backup_url:'audio/Laser1.m4a', assetType:"audio"},
+        {id:'Laser2', url:'audio/Laser2.ogg', backup_url:'audio/Laser2.m4a', assetType:"audio"},
+        {id:'Laser3', url:'audio/Laser3.ogg', backup_url:'audio/Laser3.m4a', assetType:"audio"},
+        {id:'Explosion1_01', url:'audio/Explosion1_01.ogg', backup_url:'audio/Explosion1_01.m4a', assetType:"audio"},
+        {id:'Explosion2_01', url:'audio/Explosion2_01.ogg', backup_url:'audio/Explosion2_01.m4a', assetType:"audio"},
+        {id:'Explosion2_02', url:'audio/Explosion2_02.ogg', backup_url:'audio/Explosion2_02.m4a', assetType:"audio"},
+        {id:'Explosion3_01', url:'audio/Explosion3_01.ogg', backup_url:'audio/Explosion3_01.m4a', assetType:"audio"},
+        {id:'UI_Click',	url:'audio/UI_Click.ogg', backup_url:'audio/UI_Click.m4a', assetType:"audio"},
+        {id:'ShipDeath', url:'audio/ShipDeath.ogg',  backup_url:'audio/ShipDeath.m4a',   assetType:"audio"},
+        {id:'TitleScreenAmbience',	url:'audio/TitleScreenAmbience.ogg',  backup_url:'audio/TitleScreenAmbience.m4a', 	assetType:"audio"}
     ];
-
-
-    if (!canPlay('audio/ogg')) {
-        for (var i in gameSounds) {
-            var sound = gameSounds[i];
-            sound.url = sound.url.replace(/\.ogg$/, '.m4a');
-        }        
-    }
 
     loadFont("Digital-7", "font/digital-7.ttf");
 
@@ -267,6 +249,7 @@ MyGame.prototype =
         if (this.win) {
             if (supports_h264_baseline_video())
                 playVideo('video/Spaceship_Landing.mov');
+
             else if (supports_ogg_theora_video())
                 playVideo('video/Spaceship_Landing.ogv');
         }
