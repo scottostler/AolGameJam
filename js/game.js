@@ -164,12 +164,15 @@ function playVideo(src, done) {
         video.style.display = 'none';
         video.removeEventListener('ended', cleanup, false);
         video.removeEventListener('error', cleanup, false);
+        video.removeEventListener('webkitendfullscreen', cleanup, false);
         if (video.webkitExitFullScreen) { video.webkitExitFullScreen(); }
         if (done) { done(); }
     }
 
     video.addEventListener('ended', cleanup, false);
     video.addEventListener('error', cleanup, false);
+    video.addEventListener('webkitendfullscreen', cleanup, false);
+
     video.play();
 }
 
