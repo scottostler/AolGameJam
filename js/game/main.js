@@ -1,5 +1,5 @@
 // Utility functions
-	
+
 function collided(obj1X,obj1Y,obj2X,obj2Y,totalDistance)
 {
 	var xDistance = obj1X - obj2X;
@@ -114,8 +114,12 @@ MyGame = function()
 
     loadFont("Digital-7", "font/digital-7.ttf");
 
-    if(!this.oniOS())
+    if(this.oniOS())
     {
+        gameSounds.forEach(function(sound) {
+            createjs.Sound.registerSound(sound.backup_url, sound.id);
+        });
+    } else {
         gameAssets = gameAssets.concat(gameSounds);
     }
 
@@ -136,6 +140,39 @@ MyGame = function()
 
 MyGame.prototype =
 {
+
+    playSound: function(sound) {
+        if (this.oniOS()) {
+            createjs.Sound.play(sound.id, createjs.Sound.INTERRUPT_NONE, 0, 0, sound.loop, 1);
+        } else {
+            this.audioManager.Play(sound);
+        }
+    },
+
+    stopSounds: function() {
+        if (this.oniOS()) {
+            createjs.Sound.stop();
+        } else {
+            this.audioManager.StopAll();
+        }
+    },
+
+    muteSounds: function() {
+        if (this.oniOS()) {
+            createjs.Sound.setMute(true);
+        } else {
+            this.audioManager.Mute();
+        }
+    },
+
+    unmuteSounds: function() {
+        if (this.oniOS()) {
+            createjs.Sound.setMute(false);
+        } else {
+            this.audioManager.Unmute();
+        }
+    },
+
     getAsteroids: function() {
         return this.mGameManager.mObjectsArray.filter(function(o) {
             return o instanceof Asteroid && !o.mMarkedForRemoval;
@@ -179,7 +216,7 @@ MyGame.prototype =
         });
 
         this.allAsteroids = [];
-		
+
 		this.score = 0;
 		this.lose = false;
         this.win = false;
@@ -201,7 +238,7 @@ MyGame.prototype =
         this.powerMeterBaseWidth = 340;
         this.powerMeterMask = this.createBox('#222', 280, this.Height() - 64, this.powerMeterBaseWidth, 18, "UI");
 		this.powerMeterMask.alpha = 0.8;
-		this.audioManager.Play({id:"MX_GAME", loop:true});
+		this.playSound({id:"MX_GAME", loop:true});
 		this.maxHuge = 0;
 
     },
@@ -266,7 +303,7 @@ MyGame.prototype =
         if(this.mPlaying && !this.levelOver)
         {
             this.PauseGame(true);
-            this.audioManager.Mute();
+            this.muteSounds();
         }
     },
 
@@ -275,7 +312,7 @@ MyGame.prototype =
         if(this.mPlaying)
         {
             this.PauseGame(true);
-            this.audioManager.Mute();
+            this.muteSounds();
         }
     }
 

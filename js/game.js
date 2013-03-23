@@ -172,7 +172,6 @@ function playVideo(src, done) {
     video.addEventListener('ended', cleanup, false);
     video.addEventListener('error', cleanup, false);
     video.addEventListener('webkitendfullscreen', cleanup, false);
-
     video.play();
 }
 

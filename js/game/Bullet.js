@@ -46,7 +46,8 @@ Bullet.prototype =
         
         this.LoadAnimation("moving",this.type,row,col,frames,framerate,true);
         this.PlayAnimation("moving");
-        this.mGame.audioManager.Play({id:this.sound, loop:false});
+        this.mGame.playSound({id:this.sound, loop:false});
+
         this.offsetX = 0;
         this.offsetY = 0;
         this.radius = this.width/2;
@@ -128,7 +129,7 @@ Bullet.prototype =
         anim.PlayAnimation("exploding",this.markForRemoval.bind(anim));
         anim.scaleX = scaleMe;
         anim.scaleY = scaleMe;
-        this.mGame.audioManager.Play({id:soundName, loop:false});
+        this.mGame.playSound({id:soundName, loop:false});
     }
 };
 

@@ -37,7 +37,7 @@ GameOver.prototype =
 		
 		var quitGame =		CreateButtonUI(this,0.5,0.7,"MainMenuButton",this.goToMain.bind(this),1,"UI");
 
-		this.Game().audioManager.Pause("MX_GAME");
+		this.Game().stopSounds();
 		
 		for(var i = this.Game().allAsteroids.length-1; i > -1; i--)
 		{
@@ -49,14 +49,14 @@ GameOver.prototype =
 
 	goToMain: function()
 	{
-		this.Game().audioManager.Play({id:"UI_Click", loop:false});
+		this.Game().playSound({id:"UI_Click", loop:false});
 		this.Close();
 		this.Game().GotoMainMenu();
 	},
 	
 	replayGame: function()
 	{
-		this.Game().audioManager.Play({id:"UI_Click", loop:false});
+		this.Game().playSound({id:"UI_Click", loop:false});
 		this.Close();
 		this.Game().PlayGame();
 	},

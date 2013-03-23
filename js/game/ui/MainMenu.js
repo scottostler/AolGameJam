@@ -13,7 +13,7 @@ MainMenu.prototype =
 	Setup: function()
 	{
 		this.Game().mainMenuInstance = this;
-		
+
 		var background = 	CreateScreenUI(this,0.5,0.5,"MainBackground","background");
 		var ship = 			CreateScreenUI(this,0.5,0.6,"mm_SpaceShip","background");
 		var GameName = 		CreateScreenUI(this,0.5,0.13,"AsteroidHater","background");
@@ -23,15 +23,15 @@ MainMenu.prototype =
 		var HighScoreButton =	CreateButtonUI(this,0.5,0.47,"HighScoreButton",this.goToHigh.bind(this),1,"background");
 		//playButton.addChild(CreateTextUI(this,0,0,"Play Game","bold 32px Arial","center","black"));
 		
-		this.Game().audioManager.Play({id:"TitleScreenAmbience", loop:true});
+		this.Game().playSound({id:"TitleScreenAmbience", loop:true});
 	},
 	
 
 	playGame: function(func)
 	{
-		this.Game().audioManager.Pause("TitleScreenAmbience");
+    this.Game().stopSounds();
+    this.Game().playSound({id: 'UI_Click'});
 
-		this.Game().audioManager.Play({id:"UI_Click", loop:false});
         if (supports_h264_baseline_video())  {
             playVideo('video/Spaceship_Launch.mov', function() {
                 this.Close();
@@ -43,11 +43,14 @@ MainMenu.prototype =
                 this.Close();
                 this.Game().PlayGame();
             }.bind(this));
+        } else {
+          this.Close();
+          this.Game().PlayGame();          
         }
 	},
 	goToHigh: function()
 	{
-		this.Game().audioManager.Play({id:"UI_Click", loop:false});
+		this.Game().playSound({id:"UI_Click", loop:false});
 		this.Close();
 		this.Game().ShowScreen(HighScore);
 	},

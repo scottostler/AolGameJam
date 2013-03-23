@@ -106,7 +106,7 @@ Spaceship.prototype =
 				this.LoadAnimation("death","ship_death",3,7,17,24,false);
 				this.PlayAnimation("death",this.Destroy.bind(this));
 				
-				this.mGame.audioManager.Play({id:"ShipDeath", loop:false});
+				this.mGame.playSound({id:"ShipDeath", loop:false});
 				this.lost = true;
 			}
 		}
