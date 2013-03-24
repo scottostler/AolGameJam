@@ -223,8 +223,7 @@ MyGame.prototype =
         this.score = 0;
 		this.bgManager = new BackgroundManager(this);
 		this.bgManager.Setup();
-		if(this.scoreText == null)
-			this.scoreText = CreateTextUI(this,0.05,0.05,"Score: ","bold 40px Digital-7","left","White");
+		this.scoreText = CreateTextUI(this,0.05,0.05,"Score: ","bold 40px Digital-7","left","White");
 		this.spaceShip = this.CreateWorldEntity(Spaceship).Setup(0.5,0.9,"spaceship","spaceship");
 
         var meterScale = 0.5;
@@ -287,6 +286,9 @@ MyGame.prototype =
 
     subclassEndGame: function()
     {
+        this.scoreText.markForRemoval();
+
+
         if (this.win) {
             if (supports_h264_baseline_video())
                 playVideo('video/Spaceship_Landing.mov');
