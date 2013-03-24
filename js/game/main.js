@@ -227,16 +227,20 @@ MyGame.prototype =
 			this.scoreText = CreateTextUI(this,0.05,0.05,"Score: ","bold 40px Digital-7","left","White");
 		this.spaceShip = this.CreateWorldEntity(Spaceship).Setup(0.5,0.9,"spaceship","spaceship");
 
-        this.CreateWorldEntity(TGE.ScreenEntity).Setup(150, this.Height() - 50, "power", "UI");
-
         var meterScale = 0.5;
-        var meter = this.CreateWorldEntity(TGE.ScreenEntity).Setup( 450, this.Height() - 53, "power_meter", "UI");
+        var power_graphic_y = this.oniOS() ? 100 : this.Height() - 50;
+        var power_bar_y = this.oniOS() ? 100 : this.Height() - 53;
+        var power_mask_y = this.oniOS() ? 89 : this.Height() - 64;
+
+        this.CreateWorldEntity(TGE.ScreenEntity).Setup(138, power_graphic_y, "power", "UI");
+
+        var meter = this.CreateWorldEntity(TGE.ScreenEntity).Setup(450, power_bar_y, "power_meter", "UI");
         meter.scaleX = meter.scaleY = meterScale;
 
-		var MenuButton = CreateButtonUI(this,0.8,0.05,"MenuButton",this.onBlur.bind(this),1,"background");
+		var MenuButton = CreateButtonUI(this,0.87,0.05,"MenuButton",this.onBlur.bind(this),1,"background");
 		this.spawner = new Spawner(this);
         this.powerMeterBaseWidth = 340;
-        this.powerMeterMask = this.createBox('#222', 280, this.Height() - 64, this.powerMeterBaseWidth, 18, "UI");
+        this.powerMeterMask = this.createBox('#222', 280, power_mask_y, this.powerMeterBaseWidth, 18, "UI");
 		this.powerMeterMask.alpha = 0.8;
 		this.playSound({id:"MX_GAME", loop:true});
 		this.maxHuge = 0;
