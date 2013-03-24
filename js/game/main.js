@@ -111,7 +111,7 @@ MyGame = function(launchOpts)
         {id:'ShipDeath', url:'audio/ShipDeath.ogg',  backup_url:'audio/ShipDeath.m4a',   assetType:"audio"},
         {id:'TitleScreenAmbience',	url:'audio/TitleScreenAmbience.ogg',  backup_url:'audio/TitleScreenAmbience.m4a', 	assetType:"audio"},
         {id:'MeterCharging',  url:'audio/MeterCharging.ogg',  backup_url:'audio/MeterCharging.m4a',   assetType:"audio"},
-        {id:'MeterFull',  url:'audio/MeterFull.ogg',   assetType:"audio"}
+        {id:'MeterFull',  url:'audio/MeterFull.ogg',  backup_url: 'audio/MeterFull.mp4', assetType:"audio"}
     ];
 
     loadFont("Digital-7", "font/digital-7.ttf");
@@ -162,7 +162,8 @@ MyGame.prototype =
         if (this.oniOS()) {
             return createjs.Sound.play(sound.id, createjs.Sound.INTERRUPT_NONE, 0, 0, sound.loop, 1);
         } else {
-            return this.audioManager.Play(sound);
+            this.audioManager.Play(sound);
+            return null;
         }
     },
 
@@ -303,15 +304,25 @@ MyGame.prototype =
             this.isFull = false;
             this.stopSound('MeterCharging');
             this.stopSound('MeterFull');
+
+            if (this.meterFullSound) {
+                this.meterFullSound.stop();
+                this.meterFullSound = null;
+            }
+
+            if (this.meterChargingSound) {
+                this.meterChargingSound.stop();
+                this.meterChargingSound = null;
+            }
 		} else if (this.isMouseDown()) {
 			this.spaceShip.updatePowerCharge(elapsedTime);
 		}
 
         if (this.isMouseDown() && !this.isFull && this.spaceShip.powerCharge >= 2) {
-            this.playSound({ id: 'MeterFull', loop: true});
+            this.meterFullSound = this.playSound({ id: 'MeterFull', loop: true});
             this.isFull = true;
         } else if (this.isMouseDown() && !this.isCharging && this.spaceShip.powerCharge >= 0.2) {
-            this.playSound({ id: 'MeterCharging' });
+            this.meterChargingSound = this.playSound({ id: 'MeterCharging' });
             this.isCharging = true;
         } 
 
