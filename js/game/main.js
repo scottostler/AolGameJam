@@ -160,7 +160,7 @@ MyGame.prototype =
 
     playSound: function(sound) {
         if (this.oniOS()) {
-            return createjs.Sound.play(sound.id, createjs.Sound.INTERRUPT_NONE, 0, 0, sound.loop, 1);
+            return createjs.Sound.play(sound.id, createjs.Sound.INTERRUPT_ANY, 0, 0, sound.loop, 1);
         } else {
             try {
                 this.audioManager.Play(sound);
