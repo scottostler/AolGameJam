@@ -160,9 +160,23 @@ MyGame.prototype =
 
     playSound: function(sound) {
         if (this.oniOS()) {
-            createjs.Sound.play(sound.id, createjs.Sound.INTERRUPT_NONE, 0, 0, sound.loop, 1);
+            return createjs.Sound.play(sound.id, createjs.Sound.INTERRUPT_NONE, 0, 0, sound.loop, 1);
         } else {
-            this.audioManager.Play(sound);
+            return this.audioManager.Play(sound);
+        }
+    },
+
+    stopSound: function(sound) {
+        if (this.oniOS()) {
+            
+        } else {
+            var a = this.audioManager.mplayerManagerList[sound];
+            if (a) {
+                a.restartAudio();
+                a.stopAudio();
+            } else {
+                console.log('unable to find', a);
+            }
         }
     },
 
@@ -284,9 +298,22 @@ MyGame.prototype =
 		if(isMouseReleased) {
 			this.spaceShip.attemptFireBullet();
 			this.spaceShip.resetPowerCharge();
+
+            this.isCharging = false;
+            this.isFull = false;
+            this.stopSound('MeterCharging');
+            this.stopSound('MeterFull');
 		} else if (this.isMouseDown()) {
 			this.spaceShip.updatePowerCharge(elapsedTime);
 		}
+
+        if (this.isMouseDown() && !this.isFull && this.spaceShip.powerCharge >= 2) {
+            this.playSound({ id: 'MeterFull', loop: true});
+            this.isFull = true;
+        } else if (this.isMouseDown() && !this.isCharging && this.spaceShip.powerCharge >= 0.2) {
+            this.playSound({ id: 'MeterCharging' });
+            this.isCharging = true;
+        } 
 
 		this.wasMasDown = this.isMouseDown();
         this.drawPowerMeter(this.spaceShip.powerChargeFraction());
