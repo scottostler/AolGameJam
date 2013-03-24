@@ -162,7 +162,11 @@ MyGame.prototype =
         if (this.oniOS()) {
             return createjs.Sound.play(sound.id, createjs.Sound.INTERRUPT_NONE, 0, 0, sound.loop, 1);
         } else {
-            this.audioManager.Play(sound);
+            try {
+                this.audioManager.Play(sound);
+            } catch(e) {
+                console.error('error on playSound', e);
+            }
             return null;
         }
     },
@@ -173,10 +177,12 @@ MyGame.prototype =
         } else {
             var a = this.audioManager.mplayerManagerList[sound];
             if (a) {
-                a.restartAudio();
-                a.stopAudio();
-            } else {
-                console.log('unable to find', a);
+                try {
+                    a.restartAudio();
+                    a.stopAudio();
+                } catch(e) {
+                    console.error('error on stopSound', e);
+                }
             }
         }
     },
@@ -185,7 +191,11 @@ MyGame.prototype =
         if (this.oniOS()) {
             createjs.Sound.stop();
         } else {
-            this.audioManager.StopAll();
+            try {
+                this.audioManager.StopAll();
+            } catch(e) {
+                console.error('error on stopSounds', e);
+            }
         }
     },
 
@@ -193,7 +203,11 @@ MyGame.prototype =
         if (this.oniOS()) {
             createjs.Sound.setMute(true);
         } else {
-            this.audioManager.Mute();
+            try {
+                this.audioManager.Mute();
+            } catch(e) {
+                console.error('error on muteSounds', e);
+            }
         }
     },
 
@@ -201,7 +215,11 @@ MyGame.prototype =
         if (this.oniOS()) {
             createjs.Sound.setMute(false);
         } else {
-            this.audioManager.Unmute();
+          try {
+                this.audioManager.Unmute();
+            } catch(e) {
+                console.error('error on unmuteSounds', e);
+            }
         }
     },
 
