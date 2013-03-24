@@ -37,7 +37,7 @@ function loadFont(fontFamily, src) {
     }
 }
 
-MyGame = function()
+MyGame = function(launchOpts)
 {
     window.game = this;
 
@@ -109,16 +109,33 @@ MyGame = function()
         {id:'Explosion3_01', url:'audio/Explosion3_01.ogg', backup_url:'audio/Explosion3_01.m4a', assetType:"audio"},
         {id:'UI_Click',	url:'audio/UI_Click.ogg', backup_url:'audio/UI_Click.m4a', assetType:"audio"},
         {id:'ShipDeath', url:'audio/ShipDeath.ogg',  backup_url:'audio/ShipDeath.m4a',   assetType:"audio"},
-        {id:'TitleScreenAmbience',	url:'audio/TitleScreenAmbience.ogg',  backup_url:'audio/TitleScreenAmbience.m4a', 	assetType:"audio"}
+        {id:'TitleScreenAmbience',	url:'audio/TitleScreenAmbience.ogg',  backup_url:'audio/TitleScreenAmbience.m4a', 	assetType:"audio"},
+        {id:'MeterCharging',  url:'audio/MeterCharging.ogg',  backup_url:'audio/MeterCharging.m4a',   assetType:"audio"},
+        {id:'MeterFull',  url:'audio/MeterFull.ogg',   assetType:"audio"}
     ];
 
     loadFont("Digital-7", "font/digital-7.ttf");
 
-    if(this.oniOS())
-    {
-        gameSounds.forEach(function(sound) {
-            createjs.Sound.registerSound(sound.backup_url, sound.id);
-        });
+    if(this.oniOS()) {
+        var count = 0;
+        var targetCount = 0;
+
+        createjs.Sound.addEventListener('loadComplete', function(info) {
+            count++;
+            if (count == targetCount) {
+                this.Launch(launchOpts);
+            }
+        }.bind(this), false);
+
+        for (var i in gameSounds) {
+            var sound = gameSounds[i];
+            if (sound.backup_url) {
+                targetCount++;
+                createjs.Sound.registerSound(sound.backup_url, sound.id);
+            } else {
+                console.warn("Skipping sound " + sound.id, sound);
+            }
+        }
     } else {
         gameAssets = gameAssets.concat(gameSounds);
     }

@@ -220,7 +220,8 @@ head.ready( function()
             GameConfig.ADSERVER_URL += ';key=' + (TGE.BrowserDetect.usingPhoneGap ? 'A0001' : getDistributionPartner()); // append the distribution partner id, dst
             GameConfig.ADSERVER_URL += ';kvenv=' + encodeURIComponent(TGE.BrowserDetect.platform); // append the browser platform
 
-            var _myGame = new MyGame();
+            var launchOpts = {gameDiv:"game_canvas", orientation:"portrait", reorientDiv:"wrong_orientation"};
+            var _myGame = new MyGame(launchOpts);
             // the following assumes a landscape orientation game
             if(TGE.BrowserDetect.usingPhoneGap)
             {
@@ -228,7 +229,9 @@ head.ready( function()
             }
             else if(_myGame.IsPlatformAcceptable())
             {
-                _myGame.Launch( {gameDiv:"game_canvas", orientation:"portrait", reorientDiv:"wrong_orientation"} );
+                if (!_myGame.oniOS()) {
+                    _myGame.Launch(launchOpts);
+                }
             }
             else
             {
