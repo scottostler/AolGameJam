@@ -99,18 +99,18 @@ MyGame = function(launchOpts)
     ];
 
     var gameSounds = [
-        {id:'MX_GAME', url:'audio/MX_GAME.ogg', backup_url:'audio/MX_GAME.m4a', assetType:"audio"},
-        {id:'Laser1', url:'audio/Laser1.ogg', backup_url:'audio/Laser1.m4a', assetType:"audio"},
-        {id:'Laser2', url:'audio/Laser2.ogg', backup_url:'audio/Laser2.m4a', assetType:"audio"},
-        {id:'Laser3', url:'audio/Laser3.ogg', backup_url:'audio/Laser3.m4a', assetType:"audio"},
-        {id:'Explosion1_01', url:'audio/Explosion1_01.ogg', backup_url:'audio/Explosion1_01.m4a', assetType:"audio"},
-        {id:'Explosion2_01', url:'audio/Explosion2_01.ogg', backup_url:'audio/Explosion2_01.m4a', assetType:"audio"},
-        {id:'Explosion2_02', url:'audio/Explosion2_02.ogg', backup_url:'audio/Explosion2_02.m4a', assetType:"audio"},
-        {id:'Explosion3_01', url:'audio/Explosion3_01.ogg', backup_url:'audio/Explosion3_01.m4a', assetType:"audio"},
-        {id:'UI_Click',	url:'audio/UI_Click.ogg', backup_url:'audio/UI_Click.m4a', assetType:"audio"},
-        {id:'ShipDeath', url:'audio/ShipDeath.ogg',  backup_url:'audio/ShipDeath.m4a',   assetType:"audio"},
-        {id:'TitleScreenAmbience',	url:'audio/TitleScreenAmbience.ogg',  backup_url:'audio/TitleScreenAmbience.m4a', 	assetType:"audio"},
-        {id:'MeterCharging',  url:'audio/MeterCharging.ogg',  backup_url:'audio/MeterCharging.m4a',   assetType:"audio"},
+        {id:'MX_GAME', url:'audio/MX_GAME.ogg', backup_url:'audio/MX_GAME.mp4', assetType:"audio"},
+        {id:'Laser1', url:'audio/Laser1.ogg', backup_url:'audio/Laser1.mp4', assetType:"audio"},
+        {id:'Laser2', url:'audio/Laser2.ogg', backup_url:'audio/Laser2.mp4', assetType:"audio"},
+        {id:'Laser3', url:'audio/Laser3.ogg', backup_url:'audio/Laser3.mp4', assetType:"audio"},
+        {id:'Explosion1_01', url:'audio/Explosion1_01.ogg', backup_url:'audio/Explosion1_01.mp4', assetType:"audio"},
+        {id:'Explosion2_01', url:'audio/Explosion2_01.ogg', backup_url:'audio/Explosion2_01.mp4', assetType:"audio"},
+        {id:'Explosion2_02', url:'audio/Explosion2_02.ogg', backup_url:'audio/Explosion2_02.mp4', assetType:"audio"},
+        {id:'Explosion3_01', url:'audio/Explosion3_01.ogg', backup_url:'audio/Explosion3_01.mp4', assetType:"audio"},
+        {id:'UI_Click',	url:'audio/UI_Click.ogg', backup_url:'audio/UI_Click.mp4', assetType:"audio"},
+        {id:'ShipDeath', url:'audio/ShipDeath.ogg',  backup_url:'audio/ShipDeath.mp4',   assetType:"audio"},
+        {id:'TitleScreenAmbience',	url:'audio/TitleScreenAmbience.ogg',  backup_url:'audio/TitleScreenAmbience.mp4', 	assetType:"audio"},
+        {id:'MeterCharging',  url:'audio/MeterCharging.ogg',  backup_url:'audio/MeterCharging.mp4',   assetType:"audio"},
         {id:'MeterFull',  url:'audio/MeterFull.ogg',  backup_url: 'audio/MeterFull.mp4', assetType:"audio"}
     ];
 
