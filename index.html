@@ -53,6 +53,11 @@
             };
         };
 
+        var supportedBrowser = !!window.HTMLCanvasElement;
+        if (!supportedBrowser) {
+            location.href = 'unsupported.html';
+        }
+
         window.inDevMode = (location.href.match(/^localhost/) || location.href.match(/^file/) || location.href.match(/dev\.asteroidhater\.com/));
 
         if (window.inDevMode && !location.href.match('accessToken=')) {
