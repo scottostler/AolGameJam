@@ -146,8 +146,11 @@ MyGame = function(launchOpts)
                 console.warn("Skipping sound " + sound.id, sound);
             }
         }
-    } else if (!this.oniOS() {
+        this.autoLaunch = false;
+    } else if (!this.oniOS()) {
         gameAssets = gameAssets.concat(gameSounds);
+        this.autoLaunch = true;
+    } else {
         this.autoLaunch = true;
     }
 
