@@ -229,13 +229,13 @@ head.ready( function()
             }
             else if(_myGame.IsPlatformAcceptable())
             {
-                if (!_myGame.oniOS()) {
+                if (_myGame.autoLaunch) {
                     _myGame.Launch(launchOpts);
                 }
             }
             else
             {
-                // Handle rejected platform as desired...
+                location.href = 'unsupported.html';
             }
         }
         if(TGE.BrowserDetect.usingPhoneGap)

@@ -37,6 +37,16 @@ function loadFont(fontFamily, src) {
     }
 }
 
+function webAudioAPISupported() {
+    if (typeof AudioContext !== "undefined") {
+        return true;
+    } else if (typeof webkitAudioContext !== "undefined") {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 MyGame = function(launchOpts)
 {
     window.game = this;
@@ -116,7 +126,7 @@ MyGame = function(launchOpts)
 
     loadFont("Digital-7", "font/digital-7.ttf");
 
-    if(this.oniOS()) {
+    if(this.oniOS() && webAudioAPISupported()) {
         var count = 0;
         var targetCount = 0;
 
@@ -136,8 +146,9 @@ MyGame = function(launchOpts)
                 console.warn("Skipping sound " + sound.id, sound);
             }
         }
-    } else {
+    } else if (!this.oniOS() {
         gameAssets = gameAssets.concat(gameSounds);
+        this.autoLaunch = true;
     }
 
     this.assetManager.assignImageAssetList("loading", loadingAssets);
