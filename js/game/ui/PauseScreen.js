@@ -14,7 +14,7 @@ PauseScreen.prototype.Setup = function()
 	var contButton =	CreateButtonUI(this,0.5,0.4,"ContinueButton",this.resumeGame.bind(this),1,"UI");
 	var mmButton =	CreateButtonUI(this,0.5,0.5,"MainMenuButton",this.goToMain.bind(this),1,"UI");
 	
-    this.Game().muteSounds();
+  this.Game().muteSounds();
 };
 
 

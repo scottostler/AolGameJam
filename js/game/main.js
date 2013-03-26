@@ -314,6 +314,20 @@ MyGame.prototype =
     {
     },
 
+    clearIntroText: function() {
+        if (this.introText1) {
+            this.introText1.alpha = 0;
+            this.introText1.markForRemoval();
+        }
+        if (this.introText2) {
+            this.introText2.alpha = 0;
+            this.introText2.markForRemoval();
+        }
+
+        this.introText1 = null;
+        this.introText2 = null;
+    },
+
     subclassUpdateGame: function(elapsedTime)
     {
 		if(this.lose || this.win) {
@@ -324,6 +338,13 @@ MyGame.prototype =
 		this.bgManager.moveObjects(elapsedTime);
 		this.scoreText.text = "Score: " + this.score;
 		this.checkMouseState(elapsedTime);
+
+        if (this.spawner.totalGameTime > 1 && this.spawner.totalGameTime < 4 && this.introText1 == null) {
+            this.introText1 = CreateTextUI(this,0.5,0.37,"Move and fire with your mouse","bold 36px Digital-7","center","white", 'ui');
+            this.introText2 = CreateTextUI(this,0.5,0.45,"Hold down fire for a powerful shot","bold 36px Digital-7","center","white", 'ui');
+        } else if (this.spawner.totalGameTime > 4) {
+            this.clearIntroText();
+        }
     },
 
 	checkMouseState: function(elapsedTime) {
@@ -373,6 +394,7 @@ MyGame.prototype =
 
     subclassEndGame: function()
     {
+        this.clearIntroText();
         this.scoreText.markForRemoval();
 
 
@@ -395,6 +417,8 @@ MyGame.prototype =
     {
         if(this.mPlaying && !this.levelOver)
         {
+            this.clearIntroText();
+
             this.PauseGame(true);
             this.muteSounds();
         }

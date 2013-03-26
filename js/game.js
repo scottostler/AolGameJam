@@ -186,11 +186,6 @@ head.ready( function()
         // initialize the game
         function initializeTGE() {
 
-
-            if (window.inDevMode) {
-                document.getElementById('debug-menu').style.display = 'block';
-            }
-
             // Google Analytics Tracking
             // Load the Google Analytics code in the global namespace
             // Refactor, this initialization of library needs to get moved into the TGE-SDK

@@ -46,12 +46,6 @@ Spawner.prototype =
             var speedMultiplier = lerp(1, this.maxSpeedMultiplier, Math.min(this.totalGameTime / (60 * this.rampupInMinutes), 1));
             var spawnMultipler =  lerp(1, this.maxSpawnMultiplier, Math.min(this.totalGameTime / (60 * this.rampupInMinutes), 1));
 
-            if (window.inDevMode) {
-                document.getElementById("debug-frequency").innerHTML = 'Asterioid Spawns Every ' + (this.spawnFrequency / 2).toFixed(1) + 's';
-                document.getElementById('debug-speed').innerHTML = 'Asteroid Speed ' + speedMultiplier.toFixed(2) + 'x';
-                document.getElementById('debug-spawn').innerHTML = 'Asteroid Spawn ' + spawnMultipler.toFixed(2) + 'x';
-            }
-
             this.accumulatedTime = 0;
             this.nextAsteroid = Math.random() * this.spawnFrequency / spawnMultipler;
 

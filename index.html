@@ -67,6 +67,9 @@
 
         GAMESAPI.setGameSecret('kvk6vlbtps79zyb2cp9y3wffds');
         GAMESAPI.beginGameSession(function(response) {
+            GAMESAPI.getPlayerInfo(function(r) {
+                console.log('logged in as', r.data);
+            });
         }, handleError('beginGameSession'));
     </script>
 
@@ -84,15 +87,6 @@
         <video id="video_player" style="height: 100%; width: 100%; display:none" src="" preload="auto">
     </div> 
     <div id="social_leaderboard"></div>
-</div>
-
-<div id="debug-menu" style="position: absolute; right: 10x; bottom: 10px; display: none">
-    <span id="debug-frequency">Asterioid Spawns Every 1.5s</span>
-    <span id="debug-speed">Asterioid Speed 1x</span>
-    <span id="debug-spawn">Asterioid Spawn: 1x</span>
-<!--     <span id="debug-small">Small: 100%</span>
-    <span id="debug-med">Medium: 100%</span>
-    <span id="debug-large">Large: 100%</span>  -->
 </div>
 
 <div id="fb-root"></div>
