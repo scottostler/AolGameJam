@@ -19,6 +19,7 @@ Bullet.prototype =
         var frames = 4;
         var framerate = 24;
         this.level = 1;
+        this.killCount = 0;
         if(this.percentFull > 0.33)
         {
             this.type = "three_beam";
@@ -64,7 +65,16 @@ Bullet.prototype =
         }
     },
     
+    scoreMultiplier: function() {
+        if      (this.killCount >= 5) { return 3; }
+        else if (this.killCount == 4) { return 2.5; }
+        else if (this.killCount == 3) { return 2; }
+        else if (this.killCount == 2) { return 1.5; }
+        else                          { return 1; }
+    },
+
     collisionCallback: function(bullet, enemy) {
+        bullet.killCount++;
         if (bullet.level < enemy.level) {
             bullet.visible = false;
             bullet.markForRemoval();
@@ -77,7 +87,7 @@ Bullet.prototype =
             enemy.visible = false;
             enemy.markForRemoval();
             this.createAsteroidDeath(enemy.x/this.mGame.Width(),enemy.y/this.mGame.Height(),enemy.type);
-            this.mGame.score += enemy.pointsForKilling;
+            this.mGame.score += enemy.pointsForKilling * bullet.scoreMultiplier();
 
             if (enemy.level == 3) {
                 this.mGame.maxHuge--;
