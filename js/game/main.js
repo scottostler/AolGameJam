@@ -47,6 +47,32 @@ function webAudioAPISupported() {
     }
 }
 
+function soundJSQueuedLoad(sounds, complete) {
+    var count = 0;
+    var targetCount = 0;
+    var sounds = sounds.filter(function(s) {
+        if (s.backup_url) {
+            return true;
+        } else {
+            console.warn("Skipping sound " + sound.id, sound);
+        }
+    });
+
+    var loadNextSound = function() {
+        var nextSound  = sounds.pop();
+        createjs.Sound.registerSound(nextSound.backup_url, nextSound.id);
+    }
+
+    createjs.Sound.addEventListener('loadComplete', function(info) {
+        if (sounds.length == 0) {
+            complete();
+        } else {
+            loadNextSound();
+        }
+    });
+    loadNextSound();
+}
+
 MyGame = function(launchOpts)
 {
     window.game = this;
@@ -127,25 +153,7 @@ MyGame = function(launchOpts)
     loadFont("Digital-7", "font/digital-7.ttf");
 
     if(this.oniOS() && webAudioAPISupported()) {
-        var count = 0;
-        var targetCount = 0;
-
-        createjs.Sound.addEventListener('loadComplete', function(info) {
-            count++;
-            if (count == targetCount) {
-                this.Launch(launchOpts);
-            }
-        }.bind(this), false);
-
-        for (var i in gameSounds) {
-            var sound = gameSounds[i];
-            if (sound.backup_url) {
-                targetCount++;
-                createjs.Sound.registerSound(sound.backup_url, sound.id);
-            } else {
-                console.warn("Skipping sound " + sound.id, sound);
-            }
-        }
+        soundJSQueuedLoad(gameSounds, this.Launch.bind(this, launchOpts));
         this.autoLaunch = false;
     } else if (!this.oniOS()) {
         gameAssets = gameAssets.concat(gameSounds);
@@ -173,8 +181,12 @@ MyGame.prototype =
 {
 
     playSound: function(sound) {
-        if (this.oniOS()) {
-            return createjs.Sound.play(sound.id, createjs.Sound.INTERRUPT_ANY, 0, 0, sound.loop, 1);
+        if (this.oniOS()) { // On iOS, audio playback is only enabled after a touch event.
+            if (this.audioEnabledFromTouchEvent) {
+                return createjs.Sound.play(sound.id, createjs.Sound.INTERRUPT_ANY, 0, 0, sound.loop, 1);
+            } else {
+                return null;
+            }
         } else {
             try {
                 this.audioManager.Play(sound);
@@ -202,7 +214,7 @@ MyGame.prototype =
     },
 
     stopSounds: function() {
-        if (this.oniOS()) {
+        if (this.oniOS() && this.audioEnabledFromTouchEvent) {
             createjs.Sound.stop();
         } else {
             try {
@@ -214,7 +226,7 @@ MyGame.prototype =
     },
 
     muteSounds: function() {
-        if (this.oniOS()) {
+        if (this.oniOS() && this.audioEnabledFromTouchEvent) {
             createjs.Sound.setMute(true);
         } else {
             try {
