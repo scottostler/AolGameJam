@@ -30,7 +30,6 @@ MainMenu.prototype =
 	playGame: function(func)
 	{
     this.Game().stopSounds();
-    this.Game().audioEnabledFromTouchEvent = true;
     this.Game().playSound({id: 'UI_Click'});
 
         if (supports_h264_baseline_video())  {
@@ -51,7 +50,6 @@ MainMenu.prototype =
 	},
 	goToHigh: function()
 	{
-    this.Game().audioEnabledFromTouchEvent = true;
 		this.Game().playSound({id:"UI_Click", loop:false});
 		this.Close();
 		this.Game().ShowScreen(HighScore);

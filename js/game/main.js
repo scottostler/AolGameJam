@@ -37,42 +37,6 @@ function loadFont(fontFamily, src) {
     }
 }
 
-function webAudioAPISupported() {
-    if (typeof AudioContext !== "undefined") {
-        return true;
-    } else if (typeof webkitAudioContext !== "undefined") {
-        return true;
-    } else {
-        return false;
-    }
-}
-
-function soundJSQueuedLoad(sounds, complete) {
-    var count = 0;
-    var targetCount = 0;
-    var sounds = sounds.filter(function(s) {
-        if (s.backup_url) {
-            return true;
-        } else {
-            console.warn("Skipping sound " + sound.id, sound);
-        }
-    });
-
-    var loadNextSound = function() {
-        var nextSound  = sounds.pop();
-        createjs.Sound.registerSound(nextSound.backup_url, nextSound.id);
-    }
-
-    createjs.Sound.addEventListener('loadComplete', function(info) {
-        if (sounds.length == 0) {
-            complete();
-        } else {
-            loadNextSound();
-        }
-    });
-    loadNextSound();
-}
-
 MyGame = function(launchOpts)
 {
     window.game = this;
@@ -152,14 +116,8 @@ MyGame = function(launchOpts)
 
     loadFont("Digital-7", "font/digital-7.ttf");
 
-    if(this.oniOS() && webAudioAPISupported()) {
-        soundJSQueuedLoad(gameSounds, this.Launch.bind(this, launchOpts));
-        this.autoLaunch = false;
-    } else if (!this.oniOS()) {
+    if(!this.oniOS()) {
         gameAssets = gameAssets.concat(gameSounds);
-        this.autoLaunch = true;
-    } else {
-        this.autoLaunch = true;
     }
 
     this.assetManager.assignImageAssetList("loading", loadingAssets);
@@ -181,72 +139,31 @@ MyGame.prototype =
 {
 
     playSound: function(sound) {
-        if (this.oniOS()) { // On iOS, audio playback is only enabled after a touch event.
-            if (this.audioEnabledFromTouchEvent) {
-                return createjs.Sound.play(sound.id, createjs.Sound.INTERRUPT_ANY, 0, 0, sound.loop, 1);
-            } else {
-                return null;
-            }
-        } else {
-            try {
-                this.audioManager.Play(sound);
-            } catch(e) {
-                console.error('error on playSound', e);
-            }
-            return null;
-        }
+        this.audioManager.Play(sound);
     },
 
     stopSound: function(sound) {
-        if (this.oniOS()) {
-            
-        } else {
-            var a = this.audioManager.mplayerManagerList[sound];
-            if (a) {
-                try {
-                    a.restartAudio();
-                    a.stopAudio();
-                } catch(e) {
-                    console.error('error on stopSound', e);
-                }
+        var a = this.audioManager.mplayerManagerList[sound];
+        if (a) {
+            try {
+                a.restartAudio();
+                a.stopAudio();
+            } catch(e) {
+                console.error('error on stopSound', e);
             }
         }
     },
 
     stopSounds: function() {
-        if (this.oniOS() && this.audioEnabledFromTouchEvent) {
-            createjs.Sound.stop();
-        } else {
-            try {
-                this.audioManager.StopAll();
-            } catch(e) {
-                console.error('error on stopSounds', e);
-            }
-        }
+        this.audioManager.StopAll();
     },
 
     muteSounds: function() {
-        if (this.oniOS() && this.audioEnabledFromTouchEvent) {
-            createjs.Sound.setMute(true);
-        } else {
-            try {
-                this.audioManager.Mute();
-            } catch(e) {
-                console.error('error on muteSounds', e);
-            }
-        }
+        this.audioManager.Mute();
     },
 
     unmuteSounds: function() {
-        if (this.oniOS()) {
-            createjs.Sound.setMute(false);
-        } else {
-          try {
-                this.audioManager.Unmute();
-            } catch(e) {
-                console.error('error on unmuteSounds', e);
-            }
-        }
+        this.audioManager.Unmute();
     },
 
     getAsteroids: function() {
