@@ -224,7 +224,9 @@ head.ready( function()
             }
             else if(_myGame.IsPlatformAcceptable())
             {
-                _myGame.Launch(launchOpts);
+                if (_myGame.autoLaunch) {
+                    _myGame.Launch(launchOpts);
+                }
             }
             else
             {
