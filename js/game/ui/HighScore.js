@@ -13,7 +13,7 @@ HighScore.prototype =
     Setup: function()
     {
         this.Game().mainMenuInstance = this;
-        
+        this.closed = false;
         var background =    CreateScreenUI(this,0.5,0.5,"MainBackground","background");
         var HighScoresTitle =       CreateScreenUI(this,0.5,0.1,"HighScores","background");
         HighScoresTitle.scaleX = 0.5;
@@ -30,6 +30,10 @@ HighScore.prototype =
     },
 
     displayLeaderboard: function(entries) {
+        if (this.closed) {
+            return;
+        }
+
         var topEntries = entries.slice(0, 10);
         for (var i = 0; i < topEntries.length; i++) {
             var entry = topEntries[i];
@@ -46,6 +50,7 @@ HighScore.prototype =
             t.markForRemoval();
         });
         this.textLines = [];
+        this.closed = true;
         this.Close();
         this.Game().playSound({id:"UI_Click", loop:false});
         this.Game().GotoMainMenu();
