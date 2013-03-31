@@ -37,7 +37,7 @@ HighScore.prototype =
         var topEntries = entries.slice(0, 7);
         for (var i = 0; i < topEntries.length; i++) {
             var entry = topEntries[i];
-            var text = (i + 1) + "  " + entry.playerInfo.gamerHandle + "      " + entry.score;
+            var text = (i + 1) + ".  " + entry.playerInfo.gamerHandle + "      " + entry.score;
             var textUI = CreateTextUI(this, 0.15, 0.20 + 0.10 * i, text, "bold 40px Digital-7", "left", "#E85552");
             this.textLines.push(textUI);
         }
