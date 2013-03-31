@@ -28,7 +28,7 @@ MainMenu.prototype =
       'Mulango Akpo-Esambe', 'Sande Chen', 'Johnnery De Jesus', 'Jonathan Gran',
       'Nitya Narasimhan', 'Scott Ostler', 'Son Ca Vu', 'Zac Zinger'
     ];
-    this.creditsText = CreateTextUI(this, 1, 0.97, 'By: ' + this.authorNames.join(', '), "bold 32px Digital-7","left","#E85552");
+    this.creditsText = CreateTextUI(this, 1, 0.97, 'By ' + this.authorNames.join(', '), "bold 32px Digital-7","left","#E85552");
 		
 		this.Game().playSound({id:"TitleScreenAmbience", loop:true});
 	},
