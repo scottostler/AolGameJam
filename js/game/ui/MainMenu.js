@@ -15,11 +15,11 @@ MainMenu.prototype =
 		this.Game().mainMenuInstance = this;
 
 		var background = 	CreateScreenUI(this,0.5,0.5,"MainBackground","background");
-		var ship = 			CreateScreenUI(this,0.5,0.58,"mm_SpaceShip","background");
+		var ship = 			CreateScreenUI(this,0.5,0.57,"mm_SpaceShip","background");
     ship.scaleY = .94;
 		var GameName = 		CreateScreenUI(this,0.5,0.11,"AsteroidHater","background");
 		//this.titleText = 	CreateTextUI(this,0.5,0.1,"Main Menu","bold 40px Arial","center","white");
-		var playButton =	CreateButtonUI(this,0.5,0.42,"PlayButton",this.playGame.bind(this),1,"background");
+		var playButton =	CreateButtonUI(this,0.49,0.42,"PlayButton",this.playGame.bind(this),1,"background");
 	//	var HelpButton =	CreateButtonUI(this,0.5,0.45,"HelpButton",this.doNothing.bind(this),1,"background");
 		var HighScoreButton =	CreateButtonUI(this,0.5,0.49,"HighScoreButton",this.goToHigh.bind(this),1,"background");
 		//playButton.addChild(CreateTextUI(this,0,0,"Play Game","bold 32px Arial","center","black"));
