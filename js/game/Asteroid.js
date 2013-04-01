@@ -52,6 +52,9 @@ Asteroid.prototype =
     this.rotation += elapsedTime *this.myRotation;
         if (this.y - this.radius> this.mGame.Height()) {
             this.markForRemoval();
+            if (this.level == 3) {
+              this.mGame.maxHuge--;
+            }
         }
 
     },

@@ -44,10 +44,12 @@ Spawner.prototype =
 
         if (this.accumulatedTime > this.nextAsteroid) {
             this.accumulatedTime = 0;
-            var spawnScale = clamp(this.totalGameTime / 240 * this.scale, 0, 1);
-            this.nextAsteroid = Math.max(Math.random() * 4 / lerp(1, 5, spawnScale), 0.25);
+            var spawnScale = (1 + this.totalGameTime / 240 * this.scale);
+            var speedScale = (1 + this.totalGameTime / 120 * this.scale);
+            this.nextAsteroid = Math.max(Math.random() * 4 / lerp(1, 5, spawnScale), 0.15);
             var asteroid = this.mGame.CreateWorldEntity(Asteroid).Setup(Math.random(), 0,this.totalGameTime);
-            asteroid.asteroidSpeed *= (1 + this.totalGameTime / 120 * this.scale);
+            asteroid.asteroidSpeed *= speedScale;
+            //console.log('spawn=', spawnScale, ' speed=', speedScale, ' next=', this.nextAsteroid);
         }
     }
 };
