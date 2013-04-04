@@ -12,7 +12,7 @@ Spawner = function(game) {
     this.stopSpawningSecondsBefore = 3;
 
     this.nextAsteroid = 2;
-    this.scale = 1.5;
+    this.scale = 1.1;
 };
 
 function lerp(a, b, f)
@@ -44,12 +44,12 @@ Spawner.prototype =
 
         if (this.accumulatedTime > this.nextAsteroid) {
             this.accumulatedTime = 0;
-            var spawnScale = (1 + this.totalGameTime / 240 * this.scale);
-            var speedScale = (1 + this.totalGameTime / 120 * this.scale);
-            this.nextAsteroid = Math.max(Math.random() * 4 / lerp(1, 5, spawnScale), 0.15);
+            var spawnScale = this.totalGameTime / 240 * this.scale;
+            var speedScale = Math.min((1 + this.totalGameTime / 120 * this.scale), 2.5);
+            this.nextAsteroid = Math.max(Math.random() * 3 / lerp(1, 5, spawnScale), 0.15);
             var asteroid = this.mGame.CreateWorldEntity(Asteroid).Setup(Math.random(), 0,this.totalGameTime);
             asteroid.asteroidSpeed *= speedScale;
-            //console.log('spawn=', spawnScale, ' speed=', speedScale, ' next=', this.nextAsteroid);
+            // console.log('next spawn', this.nextAsteroid, 'scale', spawnScale);
         }
     }
 };
