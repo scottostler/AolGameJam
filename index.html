@@ -3,7 +3,7 @@
 <head>
     <title>Asteroid Hater</title>
 
-    <script>
+    <!--<script>
     (function(win, doc){
     if(win.addEventListener)return;     //No need to polyfill
  
@@ -32,7 +32,7 @@
         addListen(doc.all); 
     }
 })(window, document);
-    </script>
+    </script>-->
 
     <meta http-equiv="X-UA-Compatible" content="IE=IE9" >
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -64,10 +64,10 @@
 
     <meta name="viewport"/>
 
-    <!--[if IE]><script type="text/javascript" src="js/lib/excanvas.compiled.js"></script><![endif]-->
+    <!--[DISABLED-if IE]><script type="text/javascript" src="js/lib/excanvas.compiled.js"></script><![endif]-->
 
 
-    <script>
+    <!--<script>
         if (typeof G_vmlCanvasManager !== 'undefined') {
             document.originalCreateElement = document.createElement;
             document.createElement = function(elementName) {
@@ -79,7 +79,7 @@
                 return e;
             };
         }
-    </script>
+    </script>-->
 
     <script src="http://sdk.tresensa.com/lib/viewporter.js"></script>
     <script src="http://sdk.tresensa.com/lib/PxLoader.js"></script>
@@ -103,6 +103,11 @@
     <script src="js/game.js"></script>
 
     <script>
+
+        if (!document.createElement('canvas').getContext) {
+            window.location = 'movie.html';
+        }
+
         if (!window.console) {
             window.console = {
                 error: function() {},
