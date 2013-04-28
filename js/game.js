@@ -84,28 +84,28 @@ if (GameConfig.PROD_ENV)
 }
 else
 {
-    head.js(
-        "http://sdk.tresensa.com/lib/viewporter.js",
-        "http://sdk.tresensa.com/lib/PxLoader.js",
-        "http://sdk.tresensa.com/lib/PxLoaderImage.js",
-        "js/lib/tge-debug-0.3.4.js",
-        "js/lib/font.js",
-    //    "http://sdk.tresensa.com/tge/tge-min.js",
-    //    "http://sdk.tresensa.com/lib/playnomics.js",
-    //   "http://sdk.tresensa.com/lib/facebook.js",
-        "js/game/main.js",
-		"js/game/Spaceship.js",
-        "js/game/Spawner.js",
-        "js/game/Asteroid.js",
-        "js/game/BackgroundManager.js",
-        "js/game/Bullet.js",
-        "js/game/ui/LoadingScreen.js",
-        "js/game/ui/MainMenu.js",
-        "js/game/ui/PauseScreen.js",
-        "js/game/ui/GameOver.js",
-		"js/game/ui/HighScore.js",
-		"js/game/ui/HelpScreen.js"
-    );
+  //   head.js(
+  //       "http://sdk.tresensa.com/lib/viewporter.js",
+  //       "http://sdk.tresensa.com/lib/PxLoader.js",
+  //       "http://sdk.tresensa.com/lib/PxLoaderImage.js",
+  //       "js/lib/tge-debug-0.3.4.js",
+  //       "js/lib/font.js",
+  //   //    "http://sdk.tresensa.com/tge/tge-min.js",
+  //   //    "http://sdk.tresensa.com/lib/playnomics.js",
+  //   //   "http://sdk.tresensa.com/lib/facebook.js",
+  //       "js/game/main.js",
+		// "js/game/Spaceship.js",
+  //       "js/game/Spawner.js",
+  //       "js/game/Asteroid.js",
+  //       "js/game/BackgroundManager.js",
+  //       "js/game/Bullet.js",
+  //       "js/game/ui/LoadingScreen.js",
+  //       "js/game/ui/MainMenu.js",
+  //       "js/game/ui/PauseScreen.js",
+  //       "js/game/ui/GameOver.js",
+		// "js/game/ui/HighScore.js",
+		// "js/game/ui/HelpScreen.js"
+  //   );
 }
 
 // Social Leaderboard dependencies
@@ -222,13 +222,9 @@ head.ready( function()
             {
                 _myGame.Launch( {gameDiv:"game_canvas", orientation:"portrait"} );
             }
-            else if(_myGame.IsPlatformAcceptable())
-            {
-                _myGame.Launch(launchOpts);
-            }
             else
             {
-                location.href = 'unsupported.html';
+                _myGame.Launch(launchOpts);
             }
         }
         if(TGE.BrowserDetect.usingPhoneGap)

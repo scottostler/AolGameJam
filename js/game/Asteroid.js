@@ -57,6 +57,6 @@ Asteroid.prototype =
             }
         }
 
-    },
+    }
 }
 extend(Asteroid,TGE.ScreenEntity);

@@ -3,6 +3,37 @@
 <head>
     <title>Asteroid Hater</title>
 
+    <script>
+    (function(win, doc){
+    if(win.addEventListener)return;     //No need to polyfill
+ 
+    function docHijack(p){var old = doc[p];doc[p] = function(v){return addListen(old(v))}}
+    function addEvent(on, fn, self){
+        return (self = this).attachEvent('on' + on, function(e){
+            var e = e || win.event;
+            e.preventDefault  = e.preventDefault  || function(){e.returnValue = false}
+            e.stopPropagation = e.stopPropagation || function(){e.cancelBubble = true}
+            fn.call(self, e);
+        });
+    }
+    function addListen(obj, i){
+        if(i = obj.length)while(i--)obj[i].addEventListener = addEvent;
+        else obj.addEventListener = addEvent;
+        return obj;
+    }
+ 
+    addListen([doc, win]);
+    if('Element' in win)win.Element.prototype.addEventListener = addEvent;          //IE8
+    else{       //IE < 8
+        doc.attachEvent('onreadystatechange', function(){addListen(doc.all)});      //Make sure we also init at domReady
+        docHijack('getElementsByTagName');
+        docHijack('getElementById');
+        docHijack('createElement');
+        addListen(doc.all); 
+    }
+})(window, document);
+    </script>
+
     <meta http-equiv="X-UA-Compatible" content="IE=IE9" >
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -33,7 +64,41 @@
 
     <meta name="viewport"/>
 
-    <!-- All game code and libs are loaded using head.js -->
+    <!--[if IE]><script type="text/javascript" src="js/lib/excanvas.compiled.js"></script><![endif]-->
+
+
+    <script>
+        if (typeof G_vmlCanvasManager !== 'undefined') {
+            document.originalCreateElement = document.createElement;
+            document.createElement = function(elementName) {
+                var e = document.originalCreateElement(elementName);
+                if (elementName == 'canvas') {
+                    console.log('Initializing ', e);
+                    G_vmlCanvasManager.initElement(e);
+                }
+                return e;
+            };
+        }
+    </script>
+
+    <script src="http://sdk.tresensa.com/lib/viewporter.js"></script>
+    <script src="http://sdk.tresensa.com/lib/PxLoader.js"></script>
+    <script src="http://sdk.tresensa.com/lib/PxLoaderImage.js"></script>
+    <script src="js/lib/tge-debug-0.3.4.js"></script>
+    <script src="js/lib/font.js"></script>
+    <script src="js/game/main.js"></script>
+    <script src="js/game/Spaceship.js"></script>
+    <script src="js/game/Spawner.js"></script>
+    <script src="js/game/Asteroid.js"></script>
+    <script src="js/game/BackgroundManager.js"></script>
+    <script src="js/game/Bullet.js"></script>
+    <script src="js/game/ui/LoadingScreen.js"></script>
+    <script src="js/game/ui/MainMenu.js"></script>
+    <script src="js/game/ui/PauseScreen.js"></script>
+    <script src="js/game/ui/GameOver.js"></script>
+    <script src="js/game/ui/HighScore.js"></script>
+    <script src="js/game/ui/HelpScreen.js"></script>
+
     <script src="js/lib/head.min.js"></script>
     <script src="js/game.js"></script>
 
@@ -51,11 +116,6 @@
                 console.error(label, JSON.stringify(response));
             };
         };
-
-        var supportedBrowser = !!window.HTMLCanvasElement;
-        if (!supportedBrowser || document.documentMode == 9 || document.documentMode == 8 || document.documentMode == 7) {
-            location.href = 'unsupported.html';
-        }
 
         window.inDevMode = (location.href.match(/localhost/) || location.href.match(/^file/) || location.href.match(/dev\.asteroidhater\.com/));
 
@@ -76,14 +136,13 @@
 
 <body>
 
-<div id="wrong_orientation"><img src="images/reorient_message.png"></div>
+<div id="wrong_orientation"></div>
 
 <div id="viewporter" align="center" width="100%">
     <!-- landscape game 
     <div id="game_canvas" style="position:relative; width:960px; height:536px; text-align: center;"></div>-->
     <!-- portrait game -->
     <div id="game_canvas" style="position:relative; width:640px; height:832px; text-align: center;">
-        <video id="video_player" style="height: 100%; width: 100%; display:none" src="" preload="auto">
     </div> 
     <div id="social_leaderboard"></div>
 </div>

@@ -54,7 +54,7 @@ HighScore.prototype =
         this.Close();
         this.Game().playSound({id:"UI_Click", loop:false});
         this.Game().GotoMainMenu();
-    },
+    }
     
 };
 

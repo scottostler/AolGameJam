@@ -63,7 +63,7 @@ HelpScreen.prototype =
 	{
 		this.Close();
 		this.Game().PlayGame();
-	},
+	}
 	
 };
 

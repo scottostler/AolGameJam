@@ -121,7 +121,7 @@ Spaceship.prototype =
 	{
 		this.mGame.lose = true;
 		this.markForRemoval();
-	},
+	}
 
 }
 extend(Spaceship,TGE.ScreenEntity);

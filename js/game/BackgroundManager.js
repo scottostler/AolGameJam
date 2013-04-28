@@ -48,5 +48,5 @@ BackgroundManager.prototype =
 		}
 		object.y = highestY - object.height/2;
 		this.backgroundElements.push(object);
-	},
+	}
 }
